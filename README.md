@@ -31,17 +31,24 @@ Basic understanding of **PHP** language and **MySQL** database management system
 
 ### Installing
 
-1. Clone the repository
+- Clone the repository on your server directory **( htdocs or www )** :
 
 ```bash
-git clone
+git clone https://github.com/MajhiRockzZ/php-content-management-system.git
 ```
+
+- To view this in your browser, go to `http://localhost/php-content-management-system/`
+
+> 💖 You loved it right ?
+
+- Also you can open this folder in a text editor of your choice, for example, Visual Studio Code.
 
 ## Tools Used
 
 - [XAMPP](https://www.apachefriends.org/) - PHP development environment.
 - [phpMyAdmin](https://www.phpmyadmin.net/) - Administration tool for MySQL.
 - [Visual Studio Code](https://www.phpmyadmin.net/) - Source-Code Editor.
+- [PhpStorm](https://www.jetbrains.com/phpstorm/) - The Lightning-Smart PHP IDE.
 
 ## Built With
 
