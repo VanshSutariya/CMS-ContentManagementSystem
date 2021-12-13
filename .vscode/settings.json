@@ -1,12 +1,12 @@
 {
   "workbench.colorCustomizations": {
-    "sash.hoverBorder": "#2f7c47",
-    "titleBar.activeBackground": "#215732",
+    "sash.hoverBorder": "#ab307e",
+    "titleBar.activeBackground": "#832561",
     "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#21573299",
+    "titleBar.inactiveBackground": "#83256199",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#215732",
+  "peacock.color": "#832561",
   "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
   "sqltools.connections": [
     {
