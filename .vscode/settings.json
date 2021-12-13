@@ -7,5 +7,20 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.color": "#215732",
-  "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "DB",
+      "database": "cms",
+      "username": "root",
+      "password": ""
+    }
+  ]
 }
