@@ -26,6 +26,31 @@
                             </div>
                         </form>
                     </div>
+
+                    <div class="col-xs-6">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Category Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Demo Category</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Demo Category</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Demo Category</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- /.row -->
