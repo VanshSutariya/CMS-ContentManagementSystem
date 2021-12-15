@@ -41,6 +41,8 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Category Title</th>
+                                    <th><i class="fa fa-fw fa-edit fa-lg"></i></th>
+                                    <th><i class="fa fa-fw fa-trash fa-lg"></i></th>
                                 </tr>
                                 </thead>
                                 <tbody>
