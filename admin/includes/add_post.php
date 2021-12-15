@@ -20,9 +20,7 @@ if (isset($_POST['create_post'])) {
 
     $create_post_query = mysqli_query($connection, $query);
 
-    if (!$create_post_query) {
-        die("Query Failed" . mysqli_error($connection));
-    }
+    confirmQuery($create_post_query);
 }
 ?>
 
