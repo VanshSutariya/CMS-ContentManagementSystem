@@ -81,6 +81,7 @@
                 if (!$create_comment_query) {
                     die('Query Failed' . mysqli_error($connection));
                 }
+
             }
             ?>
 
@@ -107,48 +108,41 @@
             <hr>
 
             <!-- Posted Comments -->
+            <?php
+            $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} ";
+            $query .= "AND comment_status = 'approved' ";
+            $query .= "ORDER BY comment_id DESC ";
+            $select_comment_query = mysqli_query($connection, $query);
 
-            <!-- Comment -->
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
-                    </h4>
-                    comment
-                </div>
-            </div>
+            if (!$select_comment_query) {
+                die('Query Failed' . mysqli_error($connection));
+            }
 
-            <!-- Comment -->
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
-                    </h4>
-                    comment
-                    <!-- Nested Comment -->
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <img class="media-object" src="http://placehold.it/64x64" alt="">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">Nested Start Bootstrap
-                                <small>August 25, 2014 at 9:30 PM</small>
-                            </h4>
-                            comment
-                        </div>
+            while ($row = mysqli_fetch_assoc($select_comment_query)) {
+                $comment_date = $row['comment_date'];
+                $comment_content = $row['comment_content'];
+                $comment_author = $row['comment_author'];
+
+                ?>
+
+                <!-- Comment -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img width="64" class="img-thumbnail img-circle" src="./images/profile.png">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><?php echo $comment_author ?>
+                            <small><?php $date = date_create($comment_date);
+                                echo date_format($date, "F j, Y"); ?></small>
+                        </h4>
+                        <?php echo $comment_content ?>
                     </div>
-                    <!-- End Nested Comment -->
                 </div>
-            </div>
-
-
+                <?php
+            }
+            ?>
         </div>
+
 
         <!-- Blog Sidebar Widgets Column -->
         <?php include 'includes/sidebar.php' ?>
