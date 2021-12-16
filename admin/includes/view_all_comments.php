@@ -79,6 +79,13 @@ if (isset($_GET['delete'])) {
     $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id} ";
     $delete_comment_query = mysqli_query($connection, $query);
     confirmQuery($delete_comment_query);
+
+    // TEST: UPDATE POST_COMMENT COUNT
+    $query = "UPDATE posts SET post_comment_count = post_comment_count - 1 ";
+    $query .= "WHERE post_id = $comment_post_id";
+    $update_comments_count = mysqli_query($connection, $query);
+    confirmQuery($update_comments_count);
+
     header("Location: comments.php");
 }
 ?>
