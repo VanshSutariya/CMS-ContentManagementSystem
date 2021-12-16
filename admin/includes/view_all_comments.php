@@ -38,8 +38,9 @@
         $select_posts_id = mysqli_query($connection, $query);
 
         while ($row = mysqli_fetch_assoc($select_posts_id)) {
+            $post_id = $row['post_id'];
             $post_title = $row['post_title'];
-            echo "<td>{$post_title}</td>";
+            echo "<td><a href='../post.php?p_id={$post_id}'>{$post_title}</a></td>";
         }
 
         echo "<td>{$comment_date}</td>";
