@@ -13,8 +13,16 @@
         <div class="col-md-8">
 
             <?php
-            $query = "SELECT * FROM posts";
+            $query = "SELECT * FROM posts WHERE post_status = 'published' ";
             $select_all_posts_query = mysqli_query($connection, $query);
+
+            if (!$select_all_posts_query) {
+                die('Query Failed' . mysqli_error($connection));
+            }
+
+            if (mysqli_num_rows($select_all_posts_query) == 0) {
+                echo "<h1 class='text-center'>No Post Found 😒</h1>";
+            }
 
             while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                 $post_id = $row['post_id'];
@@ -23,6 +31,12 @@
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
                 $post_content = substr($row['post_content'], 0, 200);
+                // $post_status = $row['post_status'];
+
+                /*if ($post_status !== 'published') {
+                    echo "<h1 class='text-center'>No Post Found 😒</h1>";
+                } else {*/
+
                 ?>
 
                 <!-- First Blog Post -->
@@ -35,7 +49,8 @@
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
                     echo date_format($date, "F j, Y"); ?></p>
                 <hr>
-                <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="<?php echo $post_title; ?>">
+                <img class="img-responsive" src="images/<?php echo $post_image; ?>"
+                     alt="<?php echo $post_title; ?>">
                 <hr>
                 <p><?php echo $post_content; ?></p>
                 <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id ?>">Read More <span
@@ -44,6 +59,7 @@
                 <hr>
 
                 <?php
+                // }
             }
             ?>
 
