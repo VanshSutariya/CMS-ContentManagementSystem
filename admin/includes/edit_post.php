@@ -73,7 +73,15 @@ if (isset($_GET['p_id'])) {
         <label for="post_category">Post Category Id</label>
         <select name="post_category" id="post_category" class="form-control">
             <?php
-            $query = "SELECT * FROM categories";
+            $query = "SELECT * FROM categories WHERE cat_id = $post_category_id ";
+            $default_categories = mysqli_query($connection, $query);
+            confirmQuery($default_categories);
+            while ($row = mysqli_fetch_assoc($default_categories)) {
+                $cat_id = $row['cat_id'];
+                $cat_title = $row['cat_title'];
+                echo "<option value='{$cat_id}'>{$cat_title}</option>";
+            }
+            $query = "SELECT * FROM categories WHERE cat_id != $post_category_id";
             $select_categories = mysqli_query($connection, $query);
             confirmQuery($select_categories);
 
