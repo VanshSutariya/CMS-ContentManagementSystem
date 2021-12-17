@@ -34,7 +34,7 @@
         echo "<td>{$user_role}</td>";
         echo "<td><a href=''>Approve</a></td>";
         echo "<td><a href=''>UnApprove</a></td>";
-        echo "<td><a href=''>Delete</a></td>";
+        echo "<td><a href='users.php?delete=$user_id'>Delete</a></td>";
         echo "</tr>";
     }
     ?>
@@ -60,18 +60,12 @@ if (isset($_GET['unapprove'])) {
 }
 
 if (isset($_GET['delete'])) {
-    $the_comment_id = $_GET['delete'];
+    $the_user_id = $_GET['delete'];
 
-    $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id} ";
-    $delete_comment_query = mysqli_query($connection, $query);
-    confirmQuery($delete_comment_query);
+    $query = "DELETE FROM users WHERE user_id = {$the_user_id} ";
+    $delete_user_query = mysqli_query($connection, $query);
+    confirmQuery($delete_user_query);
 
-    // TEST: UPDATE POST_COMMENT COUNT
-    $query = "UPDATE posts SET post_comment_count = post_comment_count - 1 ";
-    $query .= "WHERE post_id = $comment_post_id";
-    $update_comments_count = mysqli_query($connection, $query);
-    confirmQuery($update_comments_count);
-
-    header("Location: comments.php");
+    header("Location: users.php");
 }
 ?>
