@@ -57,6 +57,8 @@ if (isset($_GET['p_id'])) {
         $update_post = mysqli_query($connection, $query);
 
         confirmQuery($update_post);
+
+        header("Location: posts.php");
     }
 }
 ?>
@@ -113,6 +115,6 @@ if (isset($_GET['p_id'])) {
     </div>
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="update_post" value="Publish Post">
+        <input type="submit" class="btn btn-primary" name="update_post" value="Update Post">
     </div>
 </form>
