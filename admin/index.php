@@ -133,6 +133,35 @@
                 </div>
                 <!-- /.row -->
 
+                <div class="row">
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages': ['bar']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Data', 'Count'],
+                                <?php
+
+                                ?>
+                                ['Posts', 1000],
+                            ]);
+
+                            var options = {
+                                chart: {
+                                    title: '',
+                                    subtitle: '',
+                                }
+                            };
+
+                            var chart = new google.charts.Bar(document.getElementById('chart'));
+
+                            chart.draw(data, google.charts.Bar.convertOptions(options));
+                        }
+                    </script>
+                    <div id="chart" style="width: 'auto'; height: 500px; margin-left: 15px"></div>
+                </div>
+
             </div>
             <!-- /.container-fluid -->
 
