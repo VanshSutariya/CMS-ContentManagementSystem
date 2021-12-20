@@ -134,18 +134,31 @@
                 <!-- /.row -->
 
                 <div class="row">
+                    <?php
+                    $query = "SELECT * FROM posts WHERE post_status = 'draft'";
+                    $select_all_draft_post = mysqli_query($connection, $query);
+                    $post_draft_count = mysqli_num_rows($select_all_draft_post);
+
+                    $query = "SELECT * FROM comments WHERE comment_status = 'unapproved'";
+                    $select_all_unapproved_comment = mysqli_query($connection, $query);
+                    $unapproved_comment_count = mysqli_num_rows($select_all_unapproved_comment);
+
+                    $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
+                    $select_all_subscriber = mysqli_query($connection, $query);
+                    $subscriber_count = mysqli_num_rows($select_all_subscriber);
+                    ?>
                     <script type="text/javascript">
                         google.charts.load('current', {'packages': ['bar']});
                         google.charts.setOnLoadCallback(drawChart);
 
                         function drawChart() {
                             var data = google.visualization.arrayToDataTable([
-                                ['Data', 'Count'],
+                                ['', ''],
                                 <?php
-                                $element_text = ['Posts', 'Comments', 'Users', 'Categories'];
-                                $element_count = [$post_count, $comment_count, $user_count, $category_count];
+                                $element_text = ['Posts', 'Draft Posts', 'Comments', 'Pending Comments', 'Users', 'Subscribers', 'Categories'];
+                                $element_count = [$post_count, $post_draft_count, $comment_count, $unapproved_comment_count, $user_count, $subscriber_count, $category_count];
 
-                                for ($i = 0; $i < 4; $i++) {
+                                for ($i = 0; $i < 6; $i++) {
                                     // echo "['{$element_text[$i]}', {$element_count[$i]}]" . ",";
                                     echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
                                 }
