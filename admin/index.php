@@ -142,9 +142,14 @@
                             var data = google.visualization.arrayToDataTable([
                                 ['Data', 'Count'],
                                 <?php
+                                $element_text = ['Posts', 'Comments', 'Users', 'Categories'];
+                                $element_count = [$post_count, $comment_count, $user_count, $category_count];
 
+                                for ($i = 0; $i < 4; $i++) {
+                                    // echo "['{$element_text[$i]}', {$element_count[$i]}]" . ",";
+                                    echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
+                                }
                                 ?>
-                                ['Posts', 1000],
                             ]);
 
                             var options = {
@@ -159,7 +164,7 @@
                             chart.draw(data, google.charts.Bar.convertOptions(options));
                         }
                     </script>
-                    <div id="chart" style="width: 'auto'; height: 500px; margin-left: 15px"></div>
+                    <div id="chart" style="width: 'auto'; height: 500px; margin: 20px;"></div>
                 </div>
 
             </div>
