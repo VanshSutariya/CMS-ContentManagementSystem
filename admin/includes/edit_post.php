@@ -101,7 +101,16 @@ if (isset($_GET['p_id'])) {
 
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input type="text" id="post_status" class="form-control" name="post_status" value="<?php echo $post_status; ?>">
+        <select name="post_status" id="post_status" class="form-control">
+            <option value="<?php echo $post_status; ?>"><?php echo ucfirst($post_status); ?></option>
+            <?php
+            if ($post_status == 'published') {
+                echo "<option value='draft'>Draft</option>";
+            } else {
+                echo "<option value='published'>Published</option>";
+            }
+            ?>
+        </select>
     </div>
 
     <div class="form-group">
