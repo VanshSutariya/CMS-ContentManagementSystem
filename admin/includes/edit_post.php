@@ -127,7 +127,7 @@ if (isset($_GET['p_id'])) {
 
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea class="form-control" id="post_content" name="post_content" cols="30"
+        <textarea class="form-control" id="summernote" name="post_content" cols="30"
                   rows="10"><?php echo $post_content; ?></textarea>
     </div>
 
