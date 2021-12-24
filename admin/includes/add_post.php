@@ -22,7 +22,14 @@ if (isset($_POST['create_post'])) {
 
     confirmQuery($create_post_query);
 
-    header("Location: posts.php");
+    $the_post_id = mysqli_insert_id($connection);
+
+    echo "<p class='alert alert-success alert-dismissable'>
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>
+              <strong>Post Created.</strong> <a href='../post.php?p_id={$the_post_id}'>View Post</a>
+          </p>";
+
+    // header("Location: posts.php");
 }
 ?>
 
