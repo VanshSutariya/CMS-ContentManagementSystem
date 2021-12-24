@@ -60,7 +60,7 @@ if (isset($_GET['p_id'])) {
 
         echo "<p class='alert alert-success alert-dismissable'>
                 <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                    <strong>Post Updated.</strong> <a href='../post.php?p_id={$the_post_id}'>View Post</a> or <a href=''>Edit More Posts</a>
+                    <strong>Post Updated.</strong> <a href='../post.php?p_id={$the_post_id}'>View Post</a> or <a href='posts.php'>Edit More Posts</a>
               </p>";
 
         // header("Location: posts.php");
