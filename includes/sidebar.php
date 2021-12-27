@@ -28,6 +28,10 @@
                 <input type="password" class="form-control" id="password" name="password">
             </div>
             <button type="submit" class="btn btn-default" name="login">Submit</button>
+            <div style="color: #919191; padding: 10px 20px;">
+                <p>forgot your password? <a href="#">click here</a></p>
+                <p>new user? <a href="./registration.php">create new account</a></p>
+            </div>
         </form>
         <!-- /.input-group -->
     </div>
