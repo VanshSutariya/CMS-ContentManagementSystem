@@ -39,9 +39,19 @@ if (isset($_GET['uid'])) {
             }
         }
 
+        $query = "SELECT randSalt FROM users";
+        $select_randsalt_query = mysqli_query($connection, $query);
+        if (!$select_randsalt_query) {
+            die("Query Failed" . mysqli_error($connection));
+        }
+
+        $row = mysqli_fetch_array($select_randsalt_query);
+        $salt = $row['randSalt'];
+        $hashed_password = crypt($user_password, $salt);
+
         $query = "UPDATE users SET ";
         $query .= "username = '$username', ";
-        $query .= "user_password = '$user_password', ";
+        $query .= "user_password = '$hashed_password', ";
         $query .= "user_firstname = '$user_firstname', ";
         $query .= "user_lastname = '$user_lastname', ";
         $query .= "user_email = '$user_email', ";

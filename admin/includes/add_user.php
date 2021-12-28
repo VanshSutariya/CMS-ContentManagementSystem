@@ -2,6 +2,17 @@
 if (isset($_POST['create_user'])) {
     $username = $_POST['username'];
     $user_password = $_POST['user_password'];
+
+    $query = "SELECT randSalt from users";
+    $select_randsalt_query = mysqli_query($connection, $query);
+    if (!$select_randsalt_query) {
+        die("Query Failed" . mysqli_error($connection));
+    }
+
+    $row = mysqli_fetch_array($select_randsalt_query);
+    $salt = $row['randSalt'];
+    $hashed_password = crypt($user_password, $salt);
+
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];
     $user_email = $_POST['user_email'];
@@ -14,7 +25,7 @@ if (isset($_POST['create_user'])) {
     move_uploaded_file($user_image_temp, "../images/$user_image");
 
     $query = "INSERT INTO users(username, user_password, user_firstname, user_lastname, user_email, user_image, user_role) ";
-    $query .= "VALUES('{$username}','{$user_password}','{$user_firstname}','{$user_lastname}','{$user_email}','{$user_image}', '{$user_role}' ) ";
+    $query .= "VALUES('{$username}','{$hashed_password}','{$user_firstname}','{$user_lastname}','{$user_email}','{$user_image}', '{$user_role}' ) ";
 
     $create_user_query = mysqli_query($connection, $query);
 
