@@ -44,7 +44,8 @@
 
             <!-- Author -->
             <p class="lead">
-                by <a href="#"><?php echo $post_author; ?></a>
+                by
+                <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
             </p>
 
             <hr>

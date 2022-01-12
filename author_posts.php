@@ -13,10 +13,10 @@
         <div class="col-md-8">
 
             <?php
-            if (isset($_GET['category'])) {
-                $the_category_id = $_GET['category'];
+            if (isset($_GET['author'])) {
+                $the_post_author = $_GET['author'];
 
-                $query = "SELECT * FROM posts WHERE post_category_id = {$the_category_id} AND post_status = 'published' ";
+                $query = "SELECT * FROM posts WHERE post_author = '$the_post_author' AND post_status = 'published' ";
                 $select_all_posts_query = mysqli_query($connection, $query);
 
                 if (!$select_all_posts_query) {
