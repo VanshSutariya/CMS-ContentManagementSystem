@@ -96,19 +96,10 @@
     <ul class="pagination">
         <?php
         for ($i = 1; $i <= $count; $i++) {
-            if (isset($_GET['page'])) {
-                if ($_GET['page'] == $i) {
-                    echo "<li class='active'><a href='index.php?page={$i}'>{$i}</a></li>";
-                } else {
-                    echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                }
+            if ($i == $page) {
+                echo "<li class='active'><a href='index.php?page={$i}'>{$i}</a></li>";
             } else {
-                // echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                if ($i == 1) {
-                    echo "<li class='active'><a href='index.php?page={$i}'>{$i}</a></li>";
-                } else {
-                    echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                }
+                echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
             }
         }
         ?>
