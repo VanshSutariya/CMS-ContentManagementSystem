@@ -15,6 +15,13 @@
             if (isset($_GET['p_id'])) {
                 $the_post_id = $_GET['p_id'];
 
+                // View Count
+                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id ";
+                $send_query = mysqli_query($connection, $view_query);
+                if (!$send_query) {
+                    die('Query Failed' . mysqli_error($connection));
+                }
+
                 $query = "SELECT * FROM posts WHERE post_id = {$the_post_id} ";
                 $select_post_by_id = mysqli_query($connection, $query);
 
@@ -34,38 +41,43 @@
                     $post_comment_count = $row['post_comment_count'];
                     $post_date = $row['post_date'];
                 }
+
+                ?>
+
+                <!-- Blog Post -->
+
+                <!-- Title -->
+                <h1><?php echo $post_title; ?></h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by
+                    <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
+                    echo date_format($date, "F j, Y"); ?></p>
+
+                <hr>
+
+                <!-- Preview Image -->
+                <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
+
+                <hr>
+
+                <!-- Post Content -->
+                <p><?php echo $post_content; ?></p>
+
+                <hr>
+
+                <?php
+            } else {
+                header("Location: index.php");
             }
             ?>
-
-            <!-- Blog Post -->
-
-            <!-- Title -->
-            <h1><?php echo $post_title; ?></h1>
-
-            <!-- Author -->
-            <p class="lead">
-                by
-                <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
-            </p>
-
-            <hr>
-
-            <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
-                echo date_format($date, "F j, Y"); ?></p>
-
-            <hr>
-
-            <!-- Preview Image -->
-            <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
-
-            <hr>
-
-            <!-- Post Content -->
-            <p><?php echo $post_content; ?></p>
-
-            <hr>
-
             <!-- Blog Comments -->
             <?php
             if (isset($_POST['create_comment'])) {
