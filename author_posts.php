@@ -26,7 +26,14 @@
                 if (mysqli_num_rows($select_all_posts_query) == 0) {
                     echo "<h1 class='text-center'>No Post Found 😒</h1>";
                 }
+                ?>
 
+                <h1 class="page-header">
+                    By Author :
+                    <small><?php echo ucwords($the_post_author); ?></small>
+                </h1>
+
+                <?php
                 while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
@@ -40,9 +47,6 @@
                     <h2>
                         <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
                     </h2>
-                    <p class="lead">
-                        by <a href="index.php"><?php echo $post_author; ?></a>
-                    </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
                         echo date_format($date, "F j, Y"); ?></p>
                     <hr>
