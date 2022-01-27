@@ -12,7 +12,9 @@ if (isset($_POST['submit'])) {
         $email = mysqli_real_escape_string($connection, $email);
         $password = mysqli_real_escape_string($connection, $password);
 
-        $query = "SELECT randSalt FROM users";
+        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+        /*$query = "SELECT randSalt FROM users";
         $select_randsalt_query = mysqli_query($connection, $query);
 
         if (!$select_randsalt_query) {
@@ -21,7 +23,7 @@ if (isset($_POST['submit'])) {
 
         $row = mysqli_fetch_assoc($select_randsalt_query);
         $salt = $row['randSalt'];
-        $password = crypt($password, $salt);
+        $password = crypt($password, $salt);*/
 
         $query = "INSERT INTO users(username, user_email, user_password, user_role) ";
         $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber' ) ";
@@ -40,12 +42,12 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-<!-- Navigation -->
+    <!-- Navigation -->
 
 <?php include "includes/navigation.php"; ?>
 
-<!-- Page Content -->
-<div class="container">
+    <!-- Page Content -->
+    <div class="container">
 
     <section id="login">
         <div class="container">
@@ -66,18 +68,22 @@ if (isset($_POST['submit'])) {
                             ?>
                             <div class="form-group">
                                 <label for="username" class="sr-only">username</label>
-                                <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">
+                                <input type="text" name="username" id="username" class="form-control"
+                                       placeholder="Enter Desired Username">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="sr-only">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                                <input type="email" name="email" id="email" class="form-control"
+                                       placeholder="somebody@example.com">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="sr-only">Password</label>
-                                <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                                <input type="password" name="password" id="key" class="form-control"
+                                       placeholder="Password">
                             </div>
 
-                            <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">
+                            <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block"
+                                   value="Register">
                         </form>
                     </div>
                 </div> <!-- /.col-xs-12 -->
@@ -87,4 +93,4 @@ if (isset($_POST['submit'])) {
 
     <hr>
 
-    <?php include "includes/footer.php"; ?>
+<?php include "includes/footer.php"; ?>

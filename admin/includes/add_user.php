@@ -3,7 +3,7 @@ if (isset($_POST['create_user'])) {
     $username = $_POST['username'];
     $user_password = $_POST['user_password'];
 
-    $query = "SELECT randSalt from users";
+    /*$query = "SELECT randSalt from users";
     $select_randsalt_query = mysqli_query($connection, $query);
     if (!$select_randsalt_query) {
         die("Query Failed" . mysqli_error($connection));
@@ -11,7 +11,9 @@ if (isset($_POST['create_user'])) {
 
     $row = mysqli_fetch_array($select_randsalt_query);
     $salt = $row['randSalt'];
-    $hashed_password = crypt($user_password, $salt);
+    $hashed_password = crypt($user_password, $salt);*/
+
+    $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
 
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];

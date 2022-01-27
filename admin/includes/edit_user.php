@@ -39,7 +39,7 @@ if (isset($_GET['uid'])) {
             }
         }
 
-        $query = "SELECT randSalt FROM users";
+        /*$query = "SELECT randSalt FROM users";
         $select_randsalt_query = mysqli_query($connection, $query);
         if (!$select_randsalt_query) {
             die("Query Failed" . mysqli_error($connection));
@@ -47,7 +47,21 @@ if (isset($_GET['uid'])) {
 
         $row = mysqli_fetch_array($select_randsalt_query);
         $salt = $row['randSalt'];
-        $hashed_password = crypt($user_password, $salt);
+        $hashed_password = crypt($user_password, $salt);*/
+
+        if (!empty($user_password)) {
+            $query_password = "SELECT user_password FROM users WHERE user_id = $the_user_id";
+            $get_user_query = mysqli_query($connection, $query);
+            confirmQuery($get_user_query);
+            $row = mysqli_fetch_array($get_user_query);
+
+            $db_user_password = $row['user_password'];
+
+            if ($db_user_password != $user_password) {
+                $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+            }
+
+        }
 
         $query = "UPDATE users SET ";
         $query .= "username = '$username', ";
@@ -65,6 +79,8 @@ if (isset($_GET['uid'])) {
 
         header("Location: users.php");
     }
+} else {
+    header("Location: index.php");
 }
 
 
@@ -78,8 +94,7 @@ if (isset($_GET['uid'])) {
 
     <div class="form-group">
         <label for="user_password">Password</label>
-        <input type="password" id="user_password" class="form-control" name="user_password"
-               value="<?php echo $user_password; ?>">
+        <input autocomplete="off" type="password" id="user_password" class="form-control" name="user_password">
     </div>
 
     <div class="form-group">

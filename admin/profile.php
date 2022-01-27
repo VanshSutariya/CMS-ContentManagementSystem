@@ -92,8 +92,8 @@ if (isset($_SESSION['username'])) {
 
                             <div class="form-group">
                                 <label for="user_password">Password</label>
-                                <input type="password" id="user_password" class="form-control" name="user_password"
-                                       value="<?php echo $user_password; ?>">
+                                <input autocomplete="off" type="password" id="user_password" class="form-control"
+                                       name="user_password">
                             </div>
 
                             <div class="form-group">
