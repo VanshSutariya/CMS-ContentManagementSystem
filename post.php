@@ -15,19 +15,22 @@
             if (isset($_GET['p_id'])) {
                 $the_post_id = $_GET['p_id'];
 
-                // View Count
-                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id ";
-                $send_query = mysqli_query($connection, $view_query);
-                if (!$send_query) {
-                    die('Query Failed' . mysqli_error($connection));
-                }
+                if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                    // View Count
+                    $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id ";
+                    $send_query = mysqli_query($connection, $view_query);
+                    if (!$send_query) {
+                        die('Query Failed' . mysqli_error($connection));
+                    }
 
+                }
                 $query = "SELECT * FROM posts WHERE post_id = {$the_post_id} ";
                 $select_post_by_id = mysqli_query($connection, $query);
 
                 if (!$select_post_by_id) {
                     die('Query Failed : ' . mysqli_error($connection));
                 }
+
 
                 while ($row = mysqli_fetch_assoc($select_post_by_id)) {
                     $post_id = $row['post_id'];
@@ -80,29 +83,31 @@
             ?>
             <!-- Blog Comments -->
             <?php
-            if (isset($_POST['create_comment'])) {
-                $the_post_id = $_GET['p_id'];
-                $comment_author = $_POST['comment_author'];
-                $comment_email = $_POST['comment_email'];
-                $comment_content = $_POST['comment_content'];
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (isset($_POST['create_comment'])) {
+                    $the_post_id = $_GET['p_id'];
+                    $comment_author = $_POST['comment_author'];
+                    $comment_email = $_POST['comment_email'];
+                    $comment_content = $_POST['comment_content'];
 
-                if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
-                    $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                    $query .= "VALUES ($the_post_id, '{$comment_author}','{$comment_email}','{$comment_content}', 'unapproved', now()) ";
+                    if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
+                        $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
+                        $query .= "VALUES ($the_post_id, '{$comment_author}','{$comment_email}','{$comment_content}', 'unapproved', now()) ";
 
-                    $create_comment_query = mysqli_query($connection, $query);
-                    if (!$create_comment_query) {
-                        die('Query Failed' . mysqli_error($connection));
+                        $create_comment_query = mysqli_query($connection, $query);
+                        if (!$create_comment_query) {
+                            die('Query Failed' . mysqli_error($connection));
+                        }
+
+                        $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
+                        $query .= "WHERE post_id = $the_post_id ";
+                        $update_comments_count = mysqli_query($connection, $query);
+                        if (!$update_comments_count) {
+                            die('Query Failed' . mysqli_error($connection));
+                        }
+                    } else {
+                        echo "<script>alert('Fields cannot be empty!')</script>";
                     }
-
-                    $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
-                    $query .= "WHERE post_id = $the_post_id ";
-                    $update_comments_count = mysqli_query($connection, $query);
-                    if (!$update_comments_count) {
-                        die('Query Failed' . mysqli_error($connection));
-                    }
-                } else {
-                    echo "<script>alert('Fields cannot be empty!')</script>";
                 }
             }
             ?>
@@ -111,6 +116,8 @@
             <div class="well">
                 <h4>Leave a Comment:</h4>
                 <form action="" method="post" role="form">
+                    <input type="hidden" value="<?php isset($the_post_id) ?? null ?>">
+
                     <div class="form-group">
                         <label for="comment_author">Name</label>
                         <input type="text" class="form-control" name="comment_author" id="comment_author">
