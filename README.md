@@ -39,6 +39,10 @@ git clone https://github.com/MajhiRockzZ/php-content-management-system.git
 
 - To view this in your browser, go to `http://localhost/php-content-management-system/`
 
+- You can import the database from **cms.sql** file *( which is included in this repository )* using phpMyAdmin.
+
+- That's all. 🎉
+
 > 💖 You loved it right ?
 
 - Also you can open this folder in a text editor of your choice, for example, Visual Studio Code.
