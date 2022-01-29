@@ -30,7 +30,7 @@
                 while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_author = $row['post_user'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
                     $post_content = substr($row['post_content'], 0, 200);
@@ -42,7 +42,7 @@
                     </h2>
                     <p class="lead">
                         by
-                        <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
+                        <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo ucwords($post_author); ?></a>
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
                         echo date_format($date, "F j, Y"); ?></p>

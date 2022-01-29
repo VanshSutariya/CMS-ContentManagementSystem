@@ -16,7 +16,7 @@
             if (isset($_GET['author'])) {
                 $the_post_author = $_GET['author'];
 
-                $query = "SELECT * FROM posts WHERE post_author = '$the_post_author' AND post_status = 'published' ";
+                $query = "SELECT * FROM posts WHERE post_user = '$the_post_author' AND post_status = 'published' ";
                 $select_all_posts_query = mysqli_query($connection, $query);
 
                 if (!$select_all_posts_query) {

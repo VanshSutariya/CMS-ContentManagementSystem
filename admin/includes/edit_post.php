@@ -8,6 +8,7 @@ if (isset($_GET['p_id'])) {
     while ($row = mysqli_fetch_assoc($select_post_by_id)) {
         $post_id = $row['post_id'];
         // $post_author = $row['post_author'];
+        $post_user = $row['post_user'];
         $post_title = $row['post_title'];
         $post_category_id = $row['post_category_id'];
         $post_status = $row['post_status'];
@@ -103,8 +104,9 @@ if (isset($_GET['p_id'])) {
     <div class="form-group">
         <label for="post_user">Users</label>
         <select name="post_user" id="post_user" class="form-control">
+            <?php echo "<option value='{$post_user}'>{$post_user}</option>"; ?>
             <?php
-            $query = "SELECT * FROM users";
+            $query = "SELECT * FROM users WHERE username != '$post_user' ";
             $select_users = mysqli_query($connection, $query);
             confirmQuery($select_users);
 
