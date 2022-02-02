@@ -32,6 +32,7 @@
                 </li>
 
                 <li><a href="admin">Admin</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <?php
                 if (isset($_SESSION['user_role'])) {
                     if (isset($_GET['p_id'])) {
