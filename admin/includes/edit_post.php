@@ -101,11 +101,11 @@ if (isset($_GET['p_id'])) {
             $select_categories = mysqli_query($connection, $query);
             confirmQuery($select_categories);
 
-            while($row = mysqli_fetch_assoc($select_categories)) {
+            while ($row = mysqli_fetch_assoc($select_categories)) {
                 $cat_id = $row['cat_id'];
                 $cat_title = $row['cat_title'];
 
-                if($cat_id == $post_category_id) {
+                if ($cat_id == $post_category_id) {
                     echo "<option selected value='{$cat_id}'>{$cat_title}</option>";
                 } else {
                     echo "<option value='{$cat_id}'>{$cat_title}</option>";
@@ -167,7 +167,7 @@ if (isset($_GET['p_id'])) {
     <div class="form-group">
         <label for="post_content">Post Content</label>
         <textarea class="form-control" id="summernote" name="post_content" cols="30"
-                  rows="10"><?php echo $post_content; ?></textarea>
+                  rows="10"><?php echo str_replace('\r\n', '</br>', $post_content); ?></textarea>
     </div>
 
     <div class="form-group">
