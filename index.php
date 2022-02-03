@@ -44,9 +44,9 @@
                     die('Query Failed' . mysqli_error($connection));
                 }
 
-                if (mysqli_num_rows($select_all_posts_query) == 0) {
+                /*if (mysqli_num_rows($select_all_posts_query) == 0) {
                     echo "<h1 class='text-center'>No Post Found 😒</h1>";
-                }
+                }*/
 
                 while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                     $post_id = $row['post_id'];

@@ -16,7 +16,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        More Posts <span class="caret"></span></a>
+                        Post Category <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         $query = "SELECT * FROM categories";

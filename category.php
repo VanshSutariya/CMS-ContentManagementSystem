@@ -23,39 +23,43 @@
                     die('Query Failed : ' . mysqli_error($connection));
                 }
 
-                if (mysqli_num_rows($select_all_posts_query) == 0) {
-                    echo "<h1 class='text-center'>No Post Found 😒</h1>";
+                if (mysqli_num_rows($select_all_posts_query) < 1) {
+                    echo "<h4 class='text-muted'>No Posts, Please login to see draft posts.</h4>";
+                } else {
+
+                    while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
+                        $post_id = $row['post_id'];
+                        $post_title = $row['post_title'];
+                        $post_author = $row['post_user'];
+                        $post_date = $row['post_date'];
+                        $post_image = $row['post_image'];
+                        $post_content = substr($row['post_content'], 0, 200);
+                        ?>
+
+                        <!-- First Blog Post -->
+                        <h2>
+                            <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
+                        </h2>
+                        <p class="lead">
+                            by
+                            <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo ucwords($post_author); ?></a>
+                        </p>
+                        <p><span class="glyphicon glyphicon-time"></span> Posted
+                            on <?php $date = date_create($post_date);
+                            echo date_format($date, "F j, Y"); ?></p>
+                        <hr>
+                        <img class="img-responsive" src="images/<?php echo $post_image; ?>"
+                             alt="<?php echo $post_title; ?>">
+                        <hr>
+                        <p><?php echo $post_content; ?></p>
+
+                        <hr>
+
+                        <?php
+                    }
                 }
-
-                while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
-                    $post_id = $row['post_id'];
-                    $post_title = $row['post_title'];
-                    $post_author = $row['post_user'];
-                    $post_date = $row['post_date'];
-                    $post_image = $row['post_image'];
-                    $post_content = substr($row['post_content'], 0, 200);
-                    ?>
-
-                    <!-- First Blog Post -->
-                    <h2>
-                        <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
-                    </h2>
-                    <p class="lead">
-                        by
-                        <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo ucwords($post_author); ?></a>
-                    </p>
-                    <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
-                        echo date_format($date, "F j, Y"); ?></p>
-                    <hr>
-                    <img class="img-responsive" src="images/<?php echo $post_image; ?>"
-                         alt="<?php echo $post_title; ?>">
-                    <hr>
-                    <p><?php echo $post_content; ?></p>
-
-                    <hr>
-
-                    <?php
-                }
+            } else {
+                header("Locations: index.php");
             }
             ?>
 
