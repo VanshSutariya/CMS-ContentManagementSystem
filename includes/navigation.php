@@ -14,25 +14,54 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Post Category <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <?php
-                        $query = "SELECT * FROM categories";
-                        $select_all_categories_query = mysqli_query($connection, $query);
+                <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    Post Category <span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <?php
+                /*$query = "SELECT * FROM categories";
+                $select_all_categories_query = mysqli_query($connection, $query);
 
-                        while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
-                            $cat_id = $row['cat_id'];
-                            $cat_title = $row['cat_title'];
-                            echo "<li><a href='category.php?category=$cat_id'>$cat_title</a></li>";
-                        }
-                        ?>
-                    </ul>
-                </li>
+                while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
+                    $cat_id = $row['cat_id'];
+                    $cat_title = $row['cat_title'];
+                    echo "<li><a href='category.php?category=$cat_id'>$cat_title</a></li>";
+                }*/
+                ?>
+                <?php
+                $query = "SELECT * FROM categories LIMIT 3";
+                $select_all_categories_query = mysqli_query($connection, $query);
+
+                while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
+                    $cat_id = $row['cat_id'];
+                    $cat_title = $row['cat_title'];
+
+                    $category_class = '';
+                    $registration_class = '';
+                    $contact_class = '';
+
+                    $pageName = basename($_SERVER['PHP_SELF']);
+
+                    $registration = 'registration.php';
+                    $contact = 'contact.php';
+
+                    if (isset($_GET['category']) && $_GET['category'] == $cat_id) {
+                        $category_class = 'active';
+                    } else if ($pageName == $registration) {
+                        $registration_class = 'active';
+                    } else if ($pageName == $contact) {
+                        $contact_class = 'active';
+                    }
+
+                    echo "<li class='$category_class'><a href='category.php?category=$cat_id'>$cat_title</a></li>";
+                }
+                ?>
+                <!--</ul>-->
+                <!--</li>-->
 
                 <li><a href="admin">Admin</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li class="<?php echo $contact_class; ?>"><a href="contact.php">Contact</a></li>
+                <li class="<?php echo $registration_class; ?>"><a href="registration.php">Registration</a></li>
                 <?php
                 if (isset($_SESSION['user_role'])) {
                     if (isset($_GET['p_id'])) {
