@@ -18,6 +18,11 @@
 
     <!-- Login -->
     <div class="well">
+        <?php if (isset($_SESSION['user_role'])): ?>
+            <h4>Logged in as <?php echo ucwords($_SESSION['username']) ?></h4>
+            <a href="includes/logout.php" class="btn btn-danger">Logout</a>
+        <?php else: ?>
+
         <form action="includes/login.php" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -33,6 +38,8 @@
                 <p>new user? <a href="./registration.php">create new account</a></p>
             </div>
         </form>
+
+        <?php endif; ?>
         <!-- /.input-group -->
     </div>
 
