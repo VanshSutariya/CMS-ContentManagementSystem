@@ -16,7 +16,12 @@
             if (isset($_GET['category'])) {
                 $the_category_id = $_GET['category'];
 
-                $query = "SELECT * FROM posts WHERE post_category_id = {$the_category_id} AND post_status = 'published' ";
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    $query = "SELECT * FROM posts WHERE post_category_id = {$the_category_id} ";
+                } else {
+                    $query = "SELECT * FROM posts WHERE post_category_id = {$the_category_id} AND post_status = 'published' ";
+                }
+
                 $select_all_posts_query = mysqli_query($connection, $query);
 
                 if (!$select_all_posts_query) {
