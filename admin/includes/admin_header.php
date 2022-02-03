@@ -25,6 +25,9 @@ if (!isset($_SESSION['user_role'])) {
 
     <title>SB Admin - Bootstrap Admin Template</title>
 
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
