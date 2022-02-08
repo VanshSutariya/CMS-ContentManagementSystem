@@ -31,9 +31,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        $query = "SELECT * FROM posts";
-                                        $select_all_post = mysqli_query($connection, $query);
-                                        $post_count = mysqli_num_rows($select_all_post);
+                                        $post_count = recordCount('posts');
                                         echo "<div class='huge'>{$post_count}</div>"
                                         ?>
                                         <div>Posts</div>
@@ -58,9 +56,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        $query = "SELECT * FROM comments";
-                                        $select_all_comment = mysqli_query($connection, $query);
-                                        $comment_count = mysqli_num_rows($select_all_comment);
+                                        $comment_count = recordCount('comments');
                                         echo "<div class='huge'>{$comment_count}</div>"
                                         ?>
                                         <div>Comments</div>
@@ -85,9 +81,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        $query = "SELECT * FROM users";
-                                        $select_all_user = mysqli_query($connection, $query);
-                                        $user_count = mysqli_num_rows($select_all_user);
+                                        $user_count = recordCount('users');
                                         echo "<div class='huge'>{$user_count}</div>"
                                         ?>
                                         <div> Users</div>
@@ -112,9 +106,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        $query = "SELECT * FROM categories";
-                                        $select_all_category = mysqli_query($connection, $query);
-                                        $category_count = mysqli_num_rows($select_all_category);
+                                        $category_count = recordCount('categories');
                                         echo "<div class='huge'>{$category_count}</div>"
                                         ?>
                                         <div>Categories</div>
@@ -135,21 +127,10 @@
 
                 <div class="row">
                     <?php
-                    $query = "SELECT * FROM posts WHERE post_status = 'published'";
-                    $select_all_published_post = mysqli_query($connection, $query);
-                    $post_published_count = mysqli_num_rows($select_all_published_post);
-
-                    $query = "SELECT * FROM posts WHERE post_status = 'draft'";
-                    $select_all_draft_post = mysqli_query($connection, $query);
-                    $post_draft_count = mysqli_num_rows($select_all_draft_post);
-
-                    $query = "SELECT * FROM comments WHERE comment_status = 'unapproved'";
-                    $select_all_unapproved_comment = mysqli_query($connection, $query);
-                    $unapproved_comment_count = mysqli_num_rows($select_all_unapproved_comment);
-
-                    $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
-                    $select_all_subscriber = mysqli_query($connection, $query);
-                    $subscriber_count = mysqli_num_rows($select_all_subscriber);
+                    $post_published_count = checkStatus('posts', 'post_status', 'published');
+                    $post_draft_count = checkStatus('posts', 'post_status', 'draft');
+                    $unapproved_comment_count = checkStatus('comments', 'comment_status', 'unapproved');
+                    $subscriber_count = checkUserRole('users', 'user_role', 'subscriber');
                     ?>
                     <script type="text/javascript">
                         google.charts.load('current', {'packages': ['bar']});
