@@ -3,7 +3,39 @@
 
 <?php
 if (isset($_POST['submit'])) {
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
+    $error = [
+        'username' => '',
+        'email' => '',
+        'password' => ''
+    ];
+
+    if (strlen($username) < 4) {
+        $error['username'] = 'Username needs to be longer';
+    }
+
+    if ($username == '') {
+        $error['username'] = 'Username cannot be empty';
+    }
+
+    if (usernameExists($username)) {
+        $error['username'] = 'Username already exists, pick another username';
+    }
+
+    if ($email == '') {
+        $error['email'] = 'Email cannot be empty';
+    }
+
+    if (emailExists($email)) {
+        $error['email'] = 'Email already exists, <a href="index.php">Please login</a>';
+    }
+
+    if ($password == '') {
+        $error['password'] = 'Password cannot be empty';
+    }
 }
 ?>
 

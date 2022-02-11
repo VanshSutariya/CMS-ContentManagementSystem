@@ -133,10 +133,6 @@ function registerUser($username, $email, $password)
 {
     global $connection;
 
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
     if (usernameExists($username)) {
         $message = "User Exists!";
     } else {
