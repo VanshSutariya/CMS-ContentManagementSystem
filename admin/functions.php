@@ -133,44 +133,80 @@ function registerUser($username, $email, $password)
 {
     global $connection;
 
-    if (usernameExists($username)) {
+    /*if (usernameExists($username)) {
         $message = "User Exists!";
-    } else {
+    } else {*/
 
-        if (!empty($username) && !empty($email) && !empty($password)) {
-            $username = mysqli_real_escape_string($connection, $username);
-            $email = mysqli_real_escape_string($connection, $email);
-            $password = mysqli_real_escape_string($connection, $password);
+    if (!empty($username) && !empty($email) && !empty($password)) {
+        $username = mysqli_real_escape_string($connection, $username);
+        $email = mysqli_real_escape_string($connection, $email);
+        $password = mysqli_real_escape_string($connection, $password);
 
-            $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
-            /*$query = "SELECT randSalt FROM users";
-            $select_randsalt_query = mysqli_query($connection, $query);
+        /*$query = "SELECT randSalt FROM users";
+        $select_randsalt_query = mysqli_query($connection, $query);
 
-            if (!$select_randsalt_query) {
-                die("Query Failed" . mysqli_error($connection));
-            }
-
-            $row = mysqli_fetch_assoc($select_randsalt_query);
-            $salt = $row['randSalt'];
-            $password = crypt($password, $salt);*/
-
-            $query = "INSERT INTO users(username, user_email, user_password, user_role) ";
-            $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber' ) ";
-
-            $register_user_query = mysqli_query($connection, $query);
-
-            confirmQuery($register_user_query);
-
-            /*if (!$register_user_query) {
-                die("Query Failed " . mysqli_error($connection) . ' ' . mysqli_errno($connection));
-            }*/
-
-            // header("Location: ./index.php");
-            $message = "Your Registration has been submitted.";
-        } else {
-            $message = "Fields cannot be empty.";
+        if (!$select_randsalt_query) {
+            die("Query Failed" . mysqli_error($connection));
         }
+
+        $row = mysqli_fetch_assoc($select_randsalt_query);
+        $salt = $row['randSalt'];
+        $password = crypt($password, $salt);*/
+
+        $query = "INSERT INTO users(username, user_email, user_password, user_role) ";
+        $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber' ) ";
+
+        $register_user_query = mysqli_query($connection, $query);
+
+        confirmQuery($register_user_query);
+
+        /*if (!$register_user_query) {
+            die("Query Failed " . mysqli_error($connection) . ' ' . mysqli_errno($connection));
+        }*/
+
+        // header("Location: ./index.php");
+        // $message = "Your Registration has been submitted.";
+    } /*else {
+            $message = "Fields cannot be empty.";
+        }*/
+    /*}*/
+}
+
+function loginUser($username, $password)
+{
+
+    global $connection;
+
+    $username = mysqli_real_escape_string($connection, trim($username));
+    $password = mysqli_real_escape_string($connection, trim($password));
+
+    $query = "SELECT * FROM users WHERE username = '{$username}' ";
+    $select_user_query = mysqli_query($connection, $query);
+
+    confirmQuery($select_user_query);
+
+    while ($row = mysqli_fetch_assoc($select_user_query)) {
+        $db_user_id = $row['user_id'];
+        $db_username = $row['username'];
+        $db_user_password = $row['user_password'];
+        $db_user_firstname = $row['user_firstname'];
+        $db_user_lastname = $row['user_lastname'];
+        $db_user_role = $row['user_role'];
+    }
+
+    // $password = crypt($password, $db_user_password);
+
+    // if ($username === $db_username && $password === $db_user_password) {
+    if (password_verify($password, $db_user_password)) {
+        $_SESSION['username'] = $db_username;
+        $_SESSION['user_firstname'] = $db_user_firstname;
+        $_SESSION['user_lastname'] = $db_user_lastname;
+        $_SESSION['user_role'] = $db_user_role;
+        header("Location: ../admin");
+    } else {
+        header("Location: ../index.php");
     }
 }
 

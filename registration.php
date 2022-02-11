@@ -36,6 +36,13 @@ if (isset($_POST['submit'])) {
     if ($password == '') {
         $error['password'] = 'Password cannot be empty';
     }
+
+    foreach ($error as $key => $value) {
+        if (empty($value)) {
+            registerUser($username, $email, $password);
+            loginUser($username, $password);
+        }
+    }
 }
 ?>
 
@@ -54,14 +61,14 @@ if (isset($_POST['submit'])) {
                         <h1>Register</h1>
                         <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                             <?php
-                            if (isset($message)) {
+                            /*if (isset($message)) {
                                 echo "<div class='panel panel-primary'>";
                                 echo "<div class='panel-heading'>Message</div>";
                                 echo "<div class='panel-body'>
                                         <p>{$message}</p>
                                     </div>";
                                 echo "</div>";
-                            }
+                            }*/
                             ?>
                             <div class="form-group">
                                 <label for="username" class="sr-only">username</label>
