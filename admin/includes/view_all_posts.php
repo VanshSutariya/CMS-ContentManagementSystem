@@ -158,10 +158,19 @@ if (isset($_POST['checkBoxArray'])) {
 
             echo "<td><a href='posts.php?reset={$post_id}'>$post_views_count</a></td>";
             echo "<td>$post_date</td>";
-            echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
-            echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
+            echo "<td><a class='btn btn-primary' href='../post.php?p_id={$post_id}'>View Post</a></td>";
+            echo "<td><a class='btn btn-info' href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
             // echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" href='posts.php?delete={$post_id}'>Delete</a></td>";
-            echo "<td><a rel='$post_id' href='javascript:void(0)' class='delete_link'>Delete</a></td>";
+
+            ?>
+            <form method="post">
+                <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+                <?php
+                echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>';
+                ?>
+            </form>
+            <?php
+            // echo "<td><a rel='$post_id' href='javascript:void(0)' class='delete_link'>Delete</a></td>";
             echo "</tr>";
         }
         ?>
@@ -169,14 +178,23 @@ if (isset($_POST['checkBoxArray'])) {
     </table>
 </form>
 <?php
-if (isset($_GET['delete'])) {
-    $the_post_id = $_GET['delete'];
+if (isset($_POST['delete'])) {
+    $the_post_id = $_POST['post_id'];
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
     $delete_query = mysqli_query($connection, $query);
 
     confirmQuery($delete_query);
     header("Location: posts.php");
 }
+
+/*if (isset($_GET['delete'])) {
+    $the_post_id = $_GET['delete'];
+    $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
+    $delete_query = mysqli_query($connection, $query);
+
+    confirmQuery($delete_query);
+    header("Location: posts.php");
+}*/
 
 if (isset($_GET['reset'])) {
     $the_post_id = $_GET['reset'];
