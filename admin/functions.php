@@ -156,7 +156,7 @@ function registerUser($username, $email, $password)
         $password = crypt($password, $salt);*/
 
         $query = "INSERT INTO users(username, user_email, user_password, user_role) ";
-        $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber' ) ";
+        $query .= "VALUES('{$username}', '{$email}', '{$password}', 'admin' ) ";
 
         $register_user_query = mysqli_query($connection, $query);
 
@@ -204,9 +204,11 @@ function loginUser($username, $password)
         $_SESSION['user_firstname'] = $db_user_firstname;
         $_SESSION['user_lastname'] = $db_user_lastname;
         $_SESSION['user_role'] = $db_user_role;
-        header("Location: ../admin");
+        // header("Location: ../admin");
+        redirect("/php-cms/admin");
     } else {
-        header("Location: ../index.php");
+        // header("Location: ../index.php");
+        redirect("/php-cms/index.php");
     }
 }
 
