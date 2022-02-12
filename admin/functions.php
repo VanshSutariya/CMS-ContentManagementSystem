@@ -223,12 +223,16 @@ function insertCategories()
             echo "<strong>Oh snap!</strong> ";
             echo "This field should not be empty.</div>";
         } else {
-            $query = "INSERT INTO categories(cat_title) ";
-            $query .= "VALUE('{$cat_title}')";
+            /*$query = "INSERT INTO categories(cat_title) ";
+            $query .= "VALUE('{$cat_title}')";*/
+            $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUE(?) ");
+            mysqli_stmt_bind_param($stmt, 's', $cat_title);
+            mysqli_stmt_execute($stmt);
 
-            $create_category_query = mysqli_query($connection, $query);
+            // $create_category_query = mysqli_query($connection, $query);
 
-            confirmQuery($create_category_query);
+            confirmQuery($stmt);
+            mysqli_stmt_close($stmt);
         }
     }
 }
