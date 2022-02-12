@@ -92,7 +92,7 @@ function isAdmin($username)
 
     $row = mysqli_fetch_array($result);
 
-    if ($row['user_role'] == 'admin') {
+    if (isset($row['user_role']) == 'admin') {
         return true;
     } else {
         return false;
