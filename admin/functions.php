@@ -221,22 +221,25 @@ function loginUser($username, $password)
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
         $db_user_role = $row['user_role'];
+
+        if (password_verify($password, $db_user_password)) {
+            $_SESSION['username'] = $db_username;
+            $_SESSION['user_firstname'] = $db_user_firstname;
+            $_SESSION['user_lastname'] = $db_user_lastname;
+            $_SESSION['user_role'] = $db_user_role;
+            // header("Location: ../admin");
+            redirect("/php-cms/admin");
+        } else {
+            // header("Location: ../index.php");
+            // redirect("/php-cms/index.php");
+            return false;
+        }
     }
 
     // $password = crypt($password, $db_user_password);
 
     // if ($username === $db_username && $password === $db_user_password) {
-    if (password_verify($password, $db_user_password)) {
-        $_SESSION['username'] = $db_username;
-        $_SESSION['user_firstname'] = $db_user_firstname;
-        $_SESSION['user_lastname'] = $db_user_lastname;
-        $_SESSION['user_role'] = $db_user_role;
-        // header("Location: ../admin");
-        redirect("/php-cms/admin");
-    } else {
-        // header("Location: ../index.php");
-        redirect("/php-cms/index.php");
-    }
+
 }
 
 function insertCategories()

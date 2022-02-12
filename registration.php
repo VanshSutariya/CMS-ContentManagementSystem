@@ -50,60 +50,76 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 ?>
 
-    <!-- Navigation -->
+<!-- Navigation -->
 
 <?php include "includes/navigation.php"; ?>
 
-    <!-- Page Content -->
+<!-- Page Content -->
+<div class="container">
+
+    <div class="form-gap"></div>
     <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
 
-    <section id="login">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div class="form-wrap">
-                        <h1>Register</h1>
-                        <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
-                            <?php
-                            /*if (isset($message)) {
-                                echo "<div class='panel panel-primary'>";
-                                echo "<div class='panel-heading'>Message</div>";
-                                echo "<div class='panel-body'>
-                                        <p>{$message}</p>
-                                    </div>";
-                                echo "</div>";
-                            }*/
-                            ?>
-                            <div class="form-group">
-                                <label for="username" class="sr-only">username</label>
-                                <input type="text" name="username" id="username" class="form-control"
-                                       placeholder="Enter Desired Username" autocomplete="on"
-                                       value="<?php echo isset($username) ? $username : ''; ?>">
-                                <p><?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" name="email" id="email" class="form-control"
-                                       placeholder="somebody@example.com" autocomplete="on"
-                                       value="<?php echo isset($email) ? $email : ''; ?>">
-                                <p><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="sr-only">Password</label>
-                                <input type="password" name="password" id="key" class="form-control"
-                                       placeholder="Password">
-                                <p><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
-                            </div>
+                            <h3><i class="fa fa-user fa-4x"></i></h3>
+                            <h2 class="text-center">Register</h2>
+                            <div class="panel-body">
 
-                            <input type="submit" name="register" id="btn-login" class="btn btn-custom btn-lg btn-block"
-                                   value="Register">
-                        </form>
+                                <form id="register-form" role="form" autocomplete="off" class="form"
+                                      action="registration.php" method="post">
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i
+                                                        class="glyphicon glyphicon-user color-blue"></i></span>
+                                            <input name="username" type="text" class="form-control"
+                                                   placeholder="Enter Username" autocomplete="on"
+                                                   value="<?php echo isset($username) ? $username : ''; ?>">
+                                        </div>
+                                        <p><?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i
+                                                        class="glyphicon glyphicon-lock color-blue"></i></span>
+                                            <input name="email" type="email" class="form-control"
+                                                   placeholder="Enter Email" autocomplete="on"
+                                                   value="<?php echo isset($email) ? $email : ''; ?>">
+                                        </div>
+                                        <p><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i
+                                                        class="glyphicon glyphicon-lock color-blue"></i></span>
+                                            <input name="password" type="password" class="form-control"
+                                                   placeholder="Enter Password">
+                                        </div>
+                                        <p><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input name="register" class="btn btn-lg btn-primary btn-block"
+                                               value="Register"
+                                               type="submit">
+                                    </div>
+                                </form>
+                            </div><!-- Body-->
+                        </div>
                     </div>
-                </div> <!-- /.col-xs-12 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.container -->
-    </section>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <hr>
 
-<?php include "includes/footer.php"; ?>
+    <?php include "includes/footer.php"; ?>
+
+</div> <!-- /.container -->

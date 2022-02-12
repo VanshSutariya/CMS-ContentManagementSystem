@@ -2,7 +2,7 @@
 <footer>
     <div class="row">
         <div class="col-lg-12">
-            <p>Copyright &copy; CMS <?php echo date('Y'); ?></p>
+            <p>Copyright &copy; CMS by Sumesh Majhi</p>
         </div>
         <!-- /.col-lg-12 -->
     </div>

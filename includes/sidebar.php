@@ -23,7 +23,7 @@
             <a href="includes/logout.php" class="btn btn-danger">Logout</a>
         <?php else: ?>
 
-        <form action="includes/login.php" method="POST">
+        <form action="/php-cms/login.php" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" name="username">

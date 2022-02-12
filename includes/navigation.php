@@ -39,11 +39,13 @@
                     $category_class = '';
                     $registration_class = '';
                     $contact_class = '';
+                    $login_class = '';
 
                     $pageName = basename($_SERVER['PHP_SELF']);
 
                     $registration = 'registration.php';
                     $contact = 'contact.php';
+                    $login = 'login.php';
 
                     if (isset($_GET['category']) && $_GET['category'] == $cat_id) {
                         $category_class = 'active';
@@ -51,6 +53,8 @@
                         $registration_class = 'active';
                     } else if ($pageName == $contact) {
                         $contact_class = 'active';
+                    } else if ($pageName == $login) {
+                        $login_class = 'active';
                     }
 
                     /*echo "<li class='$category_class'><a href='category.php?category=$cat_id'>$cat_title</a></li>";*/
@@ -62,13 +66,24 @@
                 <!--</ul>-->
                 <!--</li>-->
 
-                <?php if (isset($_SESSION['user_role'])): ?>
+                <?php if (isLoggedIn()): ?>
                     <li><a href="/php-cms/admin">Admin</a></li>
-                <?php endif; ?>
-                <li class="<?php echo $contact_class; ?>"><a href="/php-cms/contact.php">Contact</a></li>
-                <?php if (!isset($_SESSION['user_role'])): ?>
+                    <li><a href="/php-cms/includes/logout.php">Logout</a></li>
+                <?php else: ?>
+                    <li class="<?php echo $login_class; ?>"><a href="/php-cms/login.php">Login</a></li>
                     <li class="<?php echo $registration_class; ?>"><a href="/php-cms/registration">Registration</a></li>
                 <?php endif; ?>
+
+                <?php /*if (isset($_SESSION['user_role'])): */ ?><!--
+                    <li><a href="/php-cms/admin">Admin</a></li>
+                --><?php /*endif; */ ?>
+
+                <li class="<?php echo $contact_class; ?>"><a href="/php-cms/contact.php">Contact</a></li>
+
+                <?php /*if (!isset($_SESSION['user_role'])): */ ?><!--
+                    <li class="<?php /*echo $registration_class; */ ?>"><a href="/php-cms/registration">Registration</a></li>
+                --><?php /*endif; */ ?>
+
                 <?php
                 if (isset($_SESSION['user_role'])) {
                     if (isset($_GET['p_id'])) {
