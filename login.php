@@ -63,7 +63,9 @@ if (ifItIsMethod('post')) {
                                     </div>
 
                                     <div style="color: #919191; padding: 10px 20px;">
-                                        <p>forgot your password? <a href="#">click here</a></p>
+                                        <p>forgot your password? <a
+                                                    href="/php-cms/forgot.php?forgot=<?php echo uniqid(true) ?>">click
+                                                here</a></p>
                                         <p>new user? <a href="./registration.php">create new account</a></p>
                                     </div>
 

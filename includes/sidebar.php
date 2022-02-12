@@ -1,3 +1,13 @@
+<?php
+if (ifItIsMethod('post')) {
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        loginUser($_POST['username'], $_POST['password']);
+    } else {
+        redirect('/php-cms/index.php');
+    }
+}
+?>
+
 <div class="col-md-4">
 
     <!-- Blog Search Well -->
@@ -23,21 +33,22 @@
             <a href="includes/logout.php" class="btn btn-danger">Logout</a>
         <?php else: ?>
 
-        <form action="/php-cms/login.php" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <button type="submit" class="btn btn-default" name="login">Submit</button>
-            <div style="color: #919191; padding: 10px 20px;">
-                <p>forgot your password? <a href="#">click here</a></p>
-                <p>new user? <a href="./registration.php">create new account</a></p>
-            </div>
-        </form>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-default" name="login">Submit</button>
+                <div style="color: #919191; padding: 10px 20px;">
+                    <p>forgot your password? <a href="/php-cms/forgot.php?forgot=<?php echo uniqid(true) ?>">click
+                            here</a></p>
+                    <p>new user? <a href="./registration.php">create new account</a></p>
+                </div>
+            </form>
 
         <?php endif; ?>
         <!-- /.input-group -->
