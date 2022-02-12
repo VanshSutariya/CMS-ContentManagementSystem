@@ -109,6 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                value="Register"
                                                type="submit">
                                     </div>
+
+                                    <div style="color: #919191; padding: 10px 20px;">
+                                        <p>already registered? <a href="./login.php">click here</a></p>
+                                    </div>
+
                                 </form>
                             </div><!-- Body-->
                         </div>
