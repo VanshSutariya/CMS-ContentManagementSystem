@@ -17,7 +17,7 @@
                 $the_category_id = $_GET['category'];
 
                 /*if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {*/
-                if (isAdmin($_SESSION['username'])) {
+                if (isset($_SESSION['username']) && isAdmin($_SESSION['username'])) {
                     // $query = "SELECT * FROM posts WHERE post_category_id = {$the_category_id} ";
                     $stmt1 = mysqli_prepare($connection, "SELECT post_id, post_title, post_author, post_date, post_image, post_content FROM posts WHERE post_category_id = ? ");
                 } else {

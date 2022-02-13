@@ -40,6 +40,7 @@ if (ifItIsMethod('post')) {
                 $mail->Password = Config::SMTP_PASSWORD;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = Config::SMTP_PORT;
+                $mail->CharSet = 'UTF-8';
 
                 //Recipients
                 $mail->setFrom('php@cms.com');

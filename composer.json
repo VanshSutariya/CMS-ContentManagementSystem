@@ -1,17 +1,20 @@
 {
-    "name": "majhirockzz/php-cms",
-    "require": {
-        "phpmailer/phpmailer": "^6.5"
+  "name": "majhirockzz/php-cms",
+  "require": {
+    "phpmailer/phpmailer": "^6.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Majhirockzz\\PhpCms\\": "src/"
     },
-    "autoload": {
-        "psr-4": {
-            "Majhirockzz\\PhpCms\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Sumesh Majhi",
-            "email": "sumesh.majhi.5@gmail.com"
-        }
+    "classmap": [
+      "classes"
     ]
+  },
+  "authors": [
+    {
+      "name": "Sumesh Majhi",
+      "email": "sumesh.majhi.5@gmail.com"
+    }
+  ]
 }
