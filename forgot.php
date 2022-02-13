@@ -55,8 +55,13 @@ if (ifItIsMethod('post')) {
                                 <a href="http://localhost/php-cms/reset.php?email= ' . $email . '&token=' . $token . ' ">http://localhost/php-cms/reset.php?email=' . $email . '&token=' . $token . '</a>
                                 ';
 
-                $mail->send();
-                echo '<p class="text-center">Message has been sent.</p>';
+                // $mail->send();
+                // echo '<p class="text-center">Message has been sent.</p>';
+
+                if ($mail->send()) {
+                    $emailSent = true;
+                }
+
             } catch (Exception $e) {
                 echo '<p class="text-center">Message could not be sent.</p>';
             }
@@ -78,30 +83,36 @@ if (ifItIsMethod('post')) {
                     <div class="panel-body">
                         <div class="text-center">
 
-                            <h3><i class="fa fa-lock fa-4x"></i></h3>
-                            <h2 class="text-center">Forgot Password?</h2>
-                            <p>You can reset your password here.</p>
-                            <div class="panel-body">
+                            <?php if (!isset($emailSent)) : ?>
 
-                                <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+                                <h3><i class="fa fa-lock fa-4x"></i></h3>
+                                <h2 class="text-center">Forgot Password?</h2>
+                                <p>You can reset your password here.</p>
+                                <div class="panel-body">
 
-                                    <div class="form-group">
-                                        <div class="input-group">
+                                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+
+                                        <div class="form-group">
+                                            <div class="input-group">
                                             <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                            <input id="email" name="email" placeholder="email address"
-                                                   class="form-control" type="email">
+                                                <input id="email" name="email" placeholder="email address"
+                                                       class="form-control" type="email">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block"
-                                               value="Reset Password" type="submit">
-                                    </div>
+                                        <div class="form-group">
+                                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block"
+                                                   value="Reset Password" type="submit">
+                                        </div>
 
-                                    <input type="hidden" class="hide" name="token" id="token" value="">
-                                </form>
+                                        <input type="hidden" class="hide" name="token" id="token" value="">
+                                    </form>
 
-                            </div><!-- Body-->
+                                </div><!-- Body-->
+
+                            <?php else: ?>
+                                <h2>Please check your email.</h2>
+                            <?php endif; ?>
 
                         </div>
                     </div>
