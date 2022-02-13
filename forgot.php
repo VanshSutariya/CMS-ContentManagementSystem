@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 require 'vendor/autoload.php';
 require 'classes/Config.php';
 
-if (!ifItIsMethod('get') && !isset($_GET['forgot'])) {
+if (!isset($_GET['forgot'])) {
     redirect('/php-cms/index');
 }
 
@@ -49,7 +49,11 @@ if (ifItIsMethod('post')) {
                 //Content
                 $mail->isHTML(true);
                 $mail->Subject = 'Password Reset';
-                $mail->Body = 'Forgot Password';
+                $mail->Body = '
+                                <p>Forgot Password?</p>
+                                <p>Please click to reset your password.</p>
+                                <a href="http://localhost/php-cms/reset.php?email= ' . $email . '&token=' . $token . ' ">http://localhost/php-cms/reset.php?email=' . $email . '&token=' . $token . '</a>
+                                ';
 
                 $mail->send();
                 echo '<p class="text-center">Message has been sent.</p>';
