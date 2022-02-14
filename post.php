@@ -88,6 +88,18 @@
 
                     <hr>
 
+                    <div class="row">
+                        <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-thumbs-up like"></span>
+                                Like</a>
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <p class="pull-right">Like: 10</p>
+                    </div>
+
+                    <div class="clearfix"></div>
+
                     <!-- Blog Comments -->
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -196,3 +208,11 @@
     <hr>
 
     <?php include 'includes/footer.php' ?>
+
+    <script>
+        $(document).ready(function () {
+            $('.like').click(function () {
+                console.log("It Works!")
+            });
+        })
+    </script>
