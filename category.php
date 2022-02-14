@@ -72,7 +72,7 @@
                         on <?php $date = date_create($post_date);
                         echo date_format($date, "F j, Y"); ?></p>
                     <hr>
-                    <img class="img-responsive" src="images/<?php echo $post_image; ?>"
+                    <img class="img-responsive" src="/php-cms/images/<?php echo imagePlaceholder($post_image); ?>"
                          alt="<?php echo $post_title; ?>">
                     <hr>
                     <p><?php echo $post_content; ?></p>

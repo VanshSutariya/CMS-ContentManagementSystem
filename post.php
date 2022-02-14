@@ -44,7 +44,8 @@
 
                     while ($row = mysqli_fetch_assoc($select_post_by_id)) {
                         $post_id = $row['post_id'];
-                        $post_author = $row['post_author'];
+                        // $post_author = $row['post_author'];
+                        $post_author = $row['post_user'];
                         $post_title = $row['post_title'];
                         $post_category_id = $row['post_category_id'];
                         $post_status = $row['post_status'];
@@ -65,7 +66,7 @@
                     <!-- Author -->
                     <p class="lead">
                         by
-                        <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author; ?></a>
+                        <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id; ?>"><?php echo ucwords($post_author); ?></a>
                     </p>
 
                     <hr>
@@ -77,7 +78,8 @@
                     <hr>
 
                     <!-- Preview Image -->
-                    <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
+                    <img class="img-responsive" src="/php-cms/images/<?php echo imagePlaceholder($post_image); ?>"
+                         alt="">
 
                     <hr>
 
@@ -165,7 +167,7 @@
                         <!-- Comment -->
                         <div class="media">
                             <a class="pull-left" href="#">
-                                <img width="64" class="img-thumbnail img-circle" src="./images/profile.png">
+                                <img width="64" class="img-thumbnail img-circle" src="/php-cms/images/profile.png">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><?php echo $comment_author ?>

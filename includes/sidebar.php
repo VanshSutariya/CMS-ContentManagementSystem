@@ -15,7 +15,7 @@ if (ifItIsMethod('post')) {
     <!-- Blog Search Well -->
     <div class="well">
         <h4>Blog Search</h4>
-        <form action="search.php" method="POST">
+        <form action="/php-cms/search.php" method="POST">
             <div class="input-group">
                 <input type="text" class="form-control" name="search">
                 <span class="input-group-btn">

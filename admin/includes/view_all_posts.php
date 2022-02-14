@@ -94,6 +94,9 @@ if (isset($_POST['checkBoxArray'])) {
         </thead>
         <tbody>
         <?php
+        // FIND USER
+        // $user = $_SESSION['username'];
+
         // $query = "SELECT * FROM posts ORDER BY post_id DESC ";
         $query = "SELECT posts.post_id, posts.post_author, posts.post_user, posts.post_title, posts.post_category_id, posts.post_status, posts.post_image, ";
         $query .= "posts.post_tags, posts.post_comment_count, posts.post_date, posts.post_views_count, categories.cat_id, categories.cat_title ";
@@ -141,7 +144,7 @@ if (isset($_POST['checkBoxArray'])) {
             // }
 
             echo "<td>$post_status</td>";
-            echo "<td><img width='100' class='img-responsive' src='../images/$post_image'></td>";
+            echo "<td><img width='100' class='img-responsive' src='/php-cms/images/" . imagePlaceholder($post_image) . "'></td>";
             echo "<td>$post_tags</td>";
 
             $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";

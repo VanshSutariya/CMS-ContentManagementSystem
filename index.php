@@ -87,7 +87,7 @@
                         echo date_format($date, "F j, Y"); ?></p>
                     <hr>
                     <a href="post.php?p_id=<?php echo $post_id ?>">
-                        <img class="img-responsive" src="images/<?php echo $post_image; ?>"
+                        <img class="img-responsive" src="images/<?php echo imagePlaceholder($post_image); ?>"
                              alt="<?php echo $post_title; ?>">
                     </a>
                     <hr>
