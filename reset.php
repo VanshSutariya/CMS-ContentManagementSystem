@@ -3,11 +3,14 @@
 <?php include "includes/navigation.php"; ?>
 
 <?php
-/*if (!isset($_GET['email']) && !isset($_GET['token'])) {
+if (!isset($_GET['email']) && !isset($_GET['token'])) {
     redirect('/php-cms/index');
-}*/
+}
 
-$token = '67c30c7ef3dbaef1b672b524a1c69cf82ed20b588f40c514bcb31b5eaf1e034b75264c473f80f276cdecc2c6f5216acc81e4';
+// $email = 'user@cms.com';
+$email = $_GET['email'];
+// $token = '67c30c7ef3dbaef1b672b524a1c69cf82ed20b588f40c514bcb31b5eaf1e034b75264c473f80f276cdecc2c6f5216acc81e4';
+$token = $_GET['token'];
 
 if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM users WHERE token=?')) {
     mysqli_stmt_bind_param($stmt, 's', $token);
@@ -16,9 +19,30 @@ if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
 
-    /*if ($_GET['token'] !== $token || $_GET['email'] !== $email) {
+    if ($_GET['token'] !== $token || $_GET['email'] !== $email) {
         redirect('/php-cms/index');
-    }*/
+    }
+
+    if (isset($_POST['password']) && isset($_POST['confirmPassword'])) {
+        if ($_POST['password'] === $_POST['confirmPassword']) {
+            $password = $_POST['password'];
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+            if ($stmt = mysqli_prepare($connection, "UPDATE users SET token='', user_password='{$hashedPassword}' WHERE  user_email=? ")) {
+                mysqli_stmt_bind_param($stmt, "s", $email);
+                mysqli_stmt_execute($stmt);
+
+                if (mysqli_stmt_affected_rows($stmt) >= 1) {
+                    // echo "IT WAS AFFECTED";
+                    redirect('/php-cms/login.php');
+                }
+                mysqli_stmt_close($stmt);
+                $verified = true;
+            } /*else {
+                echo "BAD QUERY";
+            }*/
+        }
+    }
 }
 ?>
 
@@ -52,7 +76,8 @@ if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM
                                         <div class="input-group">
                                             <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-ok color-blue"></i></span>
-                                            <input id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                                            <input id="confirmPassword" name="confirmPassword"
+                                                   placeholder="Confirm Password"
                                                    class="form-control" type="password">
                                         </div>
                                     </div>
@@ -72,7 +97,6 @@ if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM
             </div>
         </div>
     </div>
-
 
     <hr>
 
