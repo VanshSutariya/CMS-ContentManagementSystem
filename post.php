@@ -4,6 +4,12 @@
 <!-- Navigation -->
 <?php include 'includes/navigation.php' ?>
 
+<?php
+if (isset($_POST['liked'])) {
+    echo "<h1>It Works!</h1>";
+}
+?>
+
 <!-- Page Content -->
 <div class="container">
 
@@ -89,7 +95,8 @@
                     <hr>
 
                     <div class="row">
-                        <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-thumbs-up like"></span>
+                        <p class="pull-right"><a class="like" href="#"><span
+                                        class="glyphicon glyphicon-thumbs-up"></span>
                                 Like</a>
                         </p>
                     </div>
@@ -211,8 +218,20 @@
 
     <script>
         $(document).ready(function () {
+            var post_id = <?php echo $the_post_id; ?>;
+            var user_id = 4;
+
             $('.like').click(function () {
-                console.log("It Works!")
+                // console.log("It Works!")
+                $.ajax({
+                    url: "/php-cms/post.php?p_id=<?php echo $the_post_id; ?>",
+                    type: 'post',
+                    data: {
+                        'liked': 1,
+                        'post_id': post_id,
+                        'user_id': user_id
+                    }
+                })
             });
         })
     </script>
