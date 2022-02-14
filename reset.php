@@ -3,8 +3,22 @@
 <?php include "includes/navigation.php"; ?>
 
 <?php
-if (!isset($_GET['email']) && !isset($_GET['token'])) {
+/*if (!isset($_GET['email']) && !isset($_GET['token'])) {
     redirect('/php-cms/index');
+}*/
+
+$token = '67c30c7ef3dbaef1b672b524a1c69cf82ed20b588f40c514bcb31b5eaf1e034b75264c473f80f276cdecc2c6f5216acc81e4';
+
+if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM users WHERE token=?')) {
+    mysqli_stmt_bind_param($stmt, 's', $token);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $username, $user_email, $token);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
+
+    /*if ($_GET['token'] !== $token || $_GET['email'] !== $email) {
+        redirect('/php-cms/index');
+    }*/
 }
 ?>
 
@@ -29,13 +43,21 @@ if (!isset($_GET['email']) && !isset($_GET['token'])) {
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i
-                                                        class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                            <input id="email" name="email" placeholder="email address"
-                                                   class="form-control" type="email">
+                                                        class="glyphicon glyphicon-lock color-blue"></i></span>
+                                            <input id="password" name="password" placeholder="Enter Password"
+                                                   class="form-control" type="password">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block"
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i
+                                                        class="glyphicon glyphicon-ok color-blue"></i></span>
+                                            <input id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                                                   class="form-control" type="password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="resetPassword" class="btn btn-lg btn-primary btn-block"
                                                value="Reset Password" type="submit">
                                     </div>
 
