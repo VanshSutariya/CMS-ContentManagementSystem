@@ -32,7 +32,7 @@ if (ifItIsMethod('post')) {
     <div class="well">
         <?php if (isset($_SESSION['user_role'])): ?>
             <h4>Logged in as <?php echo ucwords($_SESSION['username']) ?></h4>
-            <a href="includes/logout.php" class="btn btn-danger">Logout</a>
+            <a href="/php-cms/includes/logout.php" class="btn btn-danger">Logout</a>
         <?php else: ?>
 
             <form method="POST">

@@ -138,22 +138,34 @@ if (isset($_POST['unliked'])) {
 
                     <hr>
 
-                    <div class="row">
-                        <p class="pull-right"><a class="like" href="#"><span
-                                        class="glyphicon glyphicon-thumbs-up"></span>
-                                Like</a>
-                        </p>
-                    </div>
+                    <?php
+                    if (isLoggedIn()) {
+                        ?>
+                        <div class="row">
+                            <p class="pull-right"><a class="like" href="#"><span
+                                            class="glyphicon glyphicon-thumbs-up"></span>
+                                    Like</a>
+                            </p>
+                        </div>
+
+                        <div class="row">
+                            <p class="pull-right"><a class="unlike" href="#"><span
+                                            class="glyphicon glyphicon-thumbs-down"></span>
+                                    Unlike</a>
+                            </p>
+                        </div>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="row">
+                            <p class="pull-right">You need to <a href="/php-cms/login.php">Login</a> to like.</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
 
                     <div class="row">
-                        <p class="pull-right"><a class="unlike" href="#"><span
-                                        class="glyphicon glyphicon-thumbs-down"></span>
-                                Unlike</a>
-                        </p>
-                    </div>
-
-                    <div class="row">
-                        <p class="pull-right">Like: 10</p>
+                        <p class="pull-right">Like: <?php getPostLikes($post_id); ?></p>
                     </div>
 
                     <div class="clearfix"></div>
@@ -270,7 +282,7 @@ if (isset($_POST['unliked'])) {
     <script>
         $(document).ready(function () {
             var post_id = <?php echo $the_post_id; ?>;
-            var user_id = 4;
+            var user_id = <?php echo loggedInUserId(); ?>;
 
             // LIKING
             $('.like').click(function () {
