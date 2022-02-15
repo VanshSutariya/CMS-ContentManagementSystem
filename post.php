@@ -15,15 +15,42 @@ if (isset($_POST['liked'])) {
     $post = mysqli_fetch_array($postResult);
     $likes = $post['likes'];
 
-    if (mysqli_num_rows($postResult) >= 1) {
+    /*if (mysqli_num_rows($postResult) >= 1) {
         echo $post['post_id'];
-    }
+    }*/
 
-    // 2. UPDATE POST WITH LIKES
+    // 2. UPDATE POST WITH LIKES (Increment)
     mysqli_query($connection, "UPDATE posts SET likes=$likes+1 WHERE post_id=$post_id");
 
     // 3. CREATE LIKES FOR POST
     mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
+    exit();
+}
+
+if (isset($_POST['unliked'])) {
+
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+
+    // 1. FETCHING RIGHT POST
+    $query = "SELECT * FROM posts WHERE post_id=$post_id";
+    $postResult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postResult);
+    $likes = $post['likes'];
+
+    /*if (mysqli_num_rows($postResult) >= 1) {
+        echo $post['post_id'];
+    }*/
+
+    // 2. DELETE LIKES
+    mysqli_query($connection, "DELETE FROM likes WHERE post_id=$post_id AND user_id=$user_id");
+
+    // 3. UPDATE POST WITH LIKES (Decrement)
+    mysqli_query($connection, "UPDATE posts SET likes=$likes-1 WHERE post_id=$post_id");
+
+    // 4. CREATE LIKES FOR POST
+    // mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
+    exit();
 }
 ?>
 
@@ -115,6 +142,13 @@ if (isset($_POST['liked'])) {
                         <p class="pull-right"><a class="like" href="#"><span
                                         class="glyphicon glyphicon-thumbs-up"></span>
                                 Like</a>
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <p class="pull-right"><a class="unlike" href="#"><span
+                                        class="glyphicon glyphicon-thumbs-down"></span>
+                                Unlike</a>
                         </p>
                     </div>
 
@@ -238,6 +272,7 @@ if (isset($_POST['liked'])) {
             var post_id = <?php echo $the_post_id; ?>;
             var user_id = 4;
 
+            // LIKING
             $('.like').click(function () {
                 // console.log("It Works!")
                 $.ajax({
@@ -245,6 +280,20 @@ if (isset($_POST['liked'])) {
                     type: 'post',
                     data: {
                         'liked': 1,
+                        'post_id': post_id,
+                        'user_id': user_id
+                    }
+                })
+            });
+
+            // UNLIKING
+            $('.unlike').click(function () {
+                // console.log("It Works!")
+                $.ajax({
+                    url: "/php-cms/post.php?p_id=<?php echo $the_post_id; ?>",
+                    type: 'post',
+                    data: {
+                        'unliked': 1,
                         'post_id': post_id,
                         'user_id': user_id
                     }
