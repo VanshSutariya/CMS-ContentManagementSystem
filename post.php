@@ -142,14 +142,16 @@ if (isset($_POST['unliked'])) {
                     if (isLoggedIn()) {
                         ?>
                         <div class="row">
-                            <p class="pull-right"><a class="like" href="#"><span
+                            <p class="pull-right"><a class="like" href="#" data-toggle="tooltip" data-placement="top"
+                                                     title="Like this post"><span
                                             class="glyphicon glyphicon-thumbs-up"></span>
                                     Like</a>
                             </p>
                         </div>
 
                         <div class="row">
-                            <p class="pull-right"><a class="unlike" href="#"><span
+                            <p class="pull-right"><a class="unlike" href="#" data-toggle="tooltip" data-placement="top"
+                                                     title="Unlike this post"><span
                                             class="glyphicon glyphicon-thumbs-down"></span>
                                     Unlike</a>
                             </p>
@@ -281,6 +283,8 @@ if (isset($_POST['unliked'])) {
 
     <script>
         $(document).ready(function () {
+            $("[data-toggle='tooltip']").tooltip();
+
             var post_id = <?php echo $the_post_id; ?>;
             var user_id = <?php echo loggedInUserId(); ?>;
 
