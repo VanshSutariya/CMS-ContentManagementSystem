@@ -1,4 +1,18 @@
 <?php
+
+function redirect($location)
+{
+    // return header("Location:" . $location);
+    header("Location:" . $location);
+    exit;
+}
+
+function query($query)
+{
+    global $connection;
+    return mysqli_query($connection, $query);
+}
+
 function imagePlaceholder($image = '')
 {
     if (!$image) {
@@ -6,13 +20,6 @@ function imagePlaceholder($image = '')
     } else {
         return $image;
     }
-}
-
-function redirect($location)
-{
-    // return header("Location:" . $location);
-    header("Location:" . $location);
-    exit;
 }
 
 function ifItIsMethod($method = null)
@@ -249,6 +256,20 @@ function loginUser($username, $password)
 
     // if ($username === $db_username && $password === $db_user_password) {
 
+}
+
+function loggedInUserId()
+{
+    if (isLoggedIn()) {
+        $result = query("SELECT * FROM users WHERE username='" . $_SESSION['username'] . "' ");
+        $user = mysqli_fetch_array($result);
+
+        if (mysqli_num_rows($result) >= 1) {
+            return $user['user_id'];
+        }
+    }
+
+    return false;
 }
 
 function insertCategories()
