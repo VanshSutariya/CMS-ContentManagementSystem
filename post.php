@@ -6,7 +6,24 @@
 
 <?php
 if (isset($_POST['liked'])) {
-    echo "<h1>It Works!</h1>";
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+
+    // 1. FETCHING RIGHT POST
+    $query = "SELECT * FROM posts WHERE post_id=$post_id";
+    $postResult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postResult);
+    $likes = $post['likes'];
+
+    if (mysqli_num_rows($postResult) >= 1) {
+        echo $post['post_id'];
+    }
+
+    // 2. UPDATE POST WITH LIKES
+    mysqli_query($connection, "UPDATE posts SET likes=$likes+1 WHERE post_id=$post_id");
+
+    // 3. CREATE LIKES FOR POST
+    mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
 }
 ?>
 
