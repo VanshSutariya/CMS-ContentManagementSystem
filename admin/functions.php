@@ -70,6 +70,11 @@ function getAllPostsUserComments()
 
 }
 
+function getAllUserCategories()
+{
+    return query("SELECT * FROM categories WHERE user_name='" . getUserName() . "'");
+}
+
 /* ==== [ USER SPECIFIC HELPERS END ] ==== */
 
 function imagePlaceholder($image = '')
