@@ -64,6 +64,12 @@ function getAllUserPosts()
 
 }
 
+function getAllPostsUserComments()
+{
+    return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE posts.post_user='" . getUserName() . "'");
+
+}
+
 /* ==== [ USER SPECIFIC HELPERS END ] ==== */
 
 function imagePlaceholder($image = '')

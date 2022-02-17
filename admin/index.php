@@ -57,7 +57,8 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        $comment_count = recordCount('comments');
+                                        // $comment_count = recordCount('comments');
+                                        $comment_count = countRecords(getAllPostsUserComments());
                                         echo "<div class='huge'>{$comment_count}</div>"
                                         ?>
                                         <div>Comments</div>
