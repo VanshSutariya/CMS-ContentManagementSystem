@@ -2,6 +2,24 @@
 <?php include "includes/header.php"; ?>
 
 <?php
+// Setting Language Variables
+if (isset($_GET['lang']) && !empty($_GET['lang'])) {
+    $_SESSION['lang'] = $_GET['lang'];
+
+    if (isset($_SESSION['lang']) && $_SESSION['lang'] != $_GET['lang']) {
+        echo "<script type='text/javascript'> location.reload(); </script>";
+    }
+}
+
+if (isset($_SESSION['lang'])) {
+    include "includes/languages/" . $_SESSION['lang'] . ".php";
+} else {
+    include "includes/languages/en.php";
+}
+?>
+
+<?php
+// PUSHER
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
@@ -57,6 +75,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <!-- Page Content -->
 <div class="container">
 
+    <form method="get" class="navbar-form navbar-right" action="" id="language_form">
+        <div class="form-group">
+            <select name="lang" class="form-control" onchange="changeLanguage()">
+                <option value="en" <?php if (isset($_SESSION['lang']) && $_SESSION['lang'] == 'en') {
+                    echo "selected";
+                } ?>>English
+                </option>
+                <option value="es" <?php if (isset($_SESSION['lang']) && $_SESSION['lang'] == 'es') {
+                    echo "selected";
+                } ?>>Spanish
+                </option>
+                <option value="hi" <?php if (isset($_SESSION['lang']) && $_SESSION['lang'] == 'hi') {
+                    echo "selected";
+                } ?>>Hindi
+                </option>
+            </select>
+        </div>
+    </form>
+
     <div class="form-gap"></div>
     <div class="container">
         <div class="row">
@@ -66,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="text-center">
 
                             <h3><i class="fa fa-user fa-4x"></i></h3>
-                            <h2 class="text-center">Register</h2>
+                            <h2 class="text-center"><?php echo _REGISTER; ?></h2>
                             <div class="panel-body">
 
                                 <form id="register-form" role="form" autocomplete="off" class="form"
@@ -77,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-user color-blue"></i></span>
                                             <input name="username" type="text" class="form-control"
-                                                   placeholder="Enter Username" autocomplete="on"
+                                                   placeholder="<?php echo _USERNAME; ?>" autocomplete="on"
                                                    value="<?php echo isset($username) ? $username : ''; ?>">
                                         </div>
                                         <p><?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
@@ -88,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-lock color-blue"></i></span>
                                             <input name="email" type="email" class="form-control"
-                                                   placeholder="Enter Email" autocomplete="on"
+                                                   placeholder="<?php echo _EMAIL; ?>" autocomplete="on"
                                                    value="<?php echo isset($email) ? $email : ''; ?>">
                                         </div>
                                         <p><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
@@ -99,14 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             <span class="input-group-addon"><i
                                                         class="glyphicon glyphicon-lock color-blue"></i></span>
                                             <input name="password" type="password" class="form-control"
-                                                   placeholder="Enter Password">
+                                                   placeholder="<?php echo _PASSWORD; ?>">
                                         </div>
                                         <p><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
                                     </div>
 
                                     <div class="form-group">
                                         <input name="register" class="btn btn-lg btn-primary btn-block"
-                                               value="Register"
+                                               value="<?php echo _REGISTER; ?>"
                                                type="submit">
                                     </div>
 
@@ -124,6 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 
     <hr>
+
+    <script>
+        function changeLanguage() {
+            document.getElementById('language_form').submit();
+        }
+    </script>
 
     <?php include "includes/footer.php"; ?>
 
