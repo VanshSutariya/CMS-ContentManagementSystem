@@ -107,7 +107,8 @@
                     <?php
                     $post_published_count = countRecords(getAllUsersPublishedPosts());
                     $post_draft_count = countRecords(getAllUsersDraftPosts());
-                    $unapproved_comment_count = checkStatus('comments', 'comment_status', 'unapproved');
+                    $approved_comment_count = countRecords(getAllUserApprovedPostsComments());
+                    $unapproved_comment_count = countRecords(getAllUserUnapprovedPostsComments());
                     ?>
                     <script type="text/javascript">
                         google.charts.load('current', {'packages': ['bar']});
@@ -117,8 +118,8 @@
                             var data = google.visualization.arrayToDataTable([
                                 ['', ''],
                                 <?php
-                                $element_text = ['All Posts', 'Active Posts', 'Draft Posts', 'Comments', 'Pending Comments', 'Categories'];
-                                $element_count = [$post_count, $post_published_count, $post_draft_count, $comment_count, $unapproved_comment_count, $category_count];
+                                $element_text = ['All Posts', 'Active Posts', 'Draft Posts', 'Approved Comments', 'Pending Comments', 'Categories'];
+                                $element_count = [$post_count, $post_published_count, $post_draft_count, $approved_comment_count, $unapproved_comment_count, $category_count];
 
                                 for ($i = 0; $i < 6; $i++) {
                                     // echo "['{$element_text[$i]}', {$element_count[$i]}]" . ",";

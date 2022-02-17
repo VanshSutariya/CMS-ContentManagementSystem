@@ -85,6 +85,16 @@ function getAllUsersDraftPosts()
     return query("SELECT * FROM posts WHERE post_user='" . getUserName() . "' AND post_status='draft'");
 }
 
+function getAllUserApprovedPostsComments()
+{
+    return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE posts.post_user='" . getUserName() . "' AND comments.comment_status='approved'");
+}
+
+function getAllUserUnapprovedPostsComments()
+{
+    return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE posts.post_user='" . getUserName() . "' AND comments.comment_status='unapproved'");
+}
+
 /* ==== [ USER SPECIFIC HELPERS END ] ==== */
 
 function imagePlaceholder($image = '')
