@@ -12,8 +12,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome to Admin
-                            <small><?php echo strtoupper(getUserName()); ?> (Role : <?php echo ucwords($_SESSION['user_role']); ?>)</small>
+                            Welcome to Admin Dashboard
+                            <small><?php echo ucfirst($_SESSION['username']); ?> (Role : <?php echo ucwords($_SESSION['user_role']); ?>)</small>
                         </h1>
                     </div>
                 </div>
@@ -31,8 +31,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <?php
-                                        // $post_count = recordCount('posts');
-                                        $post_count = countRecords(getAllUserPosts());
+                                        $post_count = recordCount('posts');
                                         echo "<div class='huge'>{$post_count}</div>"
                                         ?>
                                         <div>Posts</div>

@@ -1,5 +1,7 @@
 <?php
 
+/* ==== [ DATABASE HELPER FUNCTION START ] ==== */
+
 function redirect($location)
 {
     // return header("Location:" . $location);
@@ -10,8 +12,59 @@ function redirect($location)
 function query($query)
 {
     global $connection;
-    return mysqli_query($connection, $query);
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
 }
+
+function fetchRecords($result)
+{
+    return mysqli_fetch_array($result);
+}
+
+function countRecords($result)
+{
+    return mysqli_num_rows($result);
+}
+
+/* ==== [ DATABASE HELPER FUNCTION END ] ==== */
+
+/* ==== [ GENERAL HELPERS START ] ==== */
+
+function getUserName()
+{
+    return $_SESSION['username'] ? $_SESSION['username'] : null;
+}
+
+/* ==== [ GENERAL HELPERS END ] ==== */
+
+/* ==== [ AUTHENTICATION HELPER START ] ==== */
+
+function isAdmin()
+{
+    if (isLoggedIn()) {
+        $result = query("SELECT user_role FROM users WHERE user_id =" . $_SESSION['user_id'] . " ");
+        $row = fetchRecords($result);
+        if ($row['user_role'] == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
+
+/* ==== [ AUTHENTICATION HELPER END ] ==== */
+
+/* ==== [ USER SPECIFIC HELPERS START ] ==== */
+
+function getAllUserPosts()
+{
+    return query("SELECT * FROM posts WHERE post_user='" . getUserName() . "'");
+
+}
+
+/* ==== [ USER SPECIFIC HELPERS END ] ==== */
 
 function imagePlaceholder($image = '')
 {
@@ -125,23 +178,6 @@ function confirmQuery($result)
     }
 }
 
-function isAdmin($username)
-{
-    global $connection;
-    $query = "SELECT user_role FROM users WHERE username = '$username' ";
-
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-
-    $row = mysqli_fetch_array($result);
-
-    if (isset($row['user_role']) == 'admin') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function usernameExists($username)
 {
     global $connection;
@@ -239,6 +275,7 @@ function loginUser($username, $password)
         $db_user_role = $row['user_role'];
 
         if (password_verify($password, $db_user_password)) {
+            $_SESSION['user_id'] = $db_user_id;
             $_SESSION['username'] = $db_username;
             $_SESSION['user_firstname'] = $db_user_firstname;
             $_SESSION['user_lastname'] = $db_user_lastname;
