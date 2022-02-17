@@ -36,6 +36,7 @@ if (ifItIsMethod('post')) {
         <?php else: ?>
 
             <form method="POST">
+                <p>Username : admin & Password : admin</p>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" name="username">

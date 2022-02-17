@@ -75,6 +75,16 @@ function getAllUserCategories()
     return query("SELECT * FROM categories WHERE user_name='" . getUserName() . "'");
 }
 
+function getAllUsersPublishedPosts()
+{
+    return query("SELECT * FROM posts WHERE post_user='" . getUserName() . "' AND post_status='published'");
+}
+
+function getAllUsersDraftPosts()
+{
+    return query("SELECT * FROM posts WHERE post_user='" . getUserName() . "' AND post_status='draft'");
+}
+
 /* ==== [ USER SPECIFIC HELPERS END ] ==== */
 
 function imagePlaceholder($image = '')

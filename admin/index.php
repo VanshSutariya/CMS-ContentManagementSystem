@@ -105,8 +105,8 @@
 
                 <div class="row">
                     <?php
-                    $post_published_count = checkStatus('posts', 'post_status', 'published');
-                    $post_draft_count = checkStatus('posts', 'post_status', 'draft');
+                    $post_published_count = countRecords(getAllUsersPublishedPosts());
+                    $post_draft_count = countRecords(getAllUsersDraftPosts());
                     $unapproved_comment_count = checkStatus('comments', 'comment_status', 'unapproved');
                     ?>
                     <script type="text/javascript">
