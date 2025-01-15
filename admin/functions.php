@@ -61,18 +61,16 @@ function isAdmin()
 function getAllUserPosts()
 {
     return query("SELECT * FROM posts WHERE post_user='" . getUserName() . "'");
-
 }
 
 function getAllPostsUserComments()
 {
     return query("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE posts.post_user='" . getUserName() . "'");
-
 }
 
-function getAllUserCategories()
+function getAllUserCategories($user_id)
 {
-    return query("SELECT * FROM categories WHERE user_name='" . getUserName() . "'");
+    return query("SELECT * FROM categories WHERE user_id = $user_id ");
 }
 
 function getAllUsersPublishedPosts()
@@ -195,7 +193,6 @@ function usersOnline()
             $users_online_query = mysqli_query($connection, "SELECT * FROM users_online WHERE time > '$time_out' ");
             echo $count_user = mysqli_num_rows($users_online_query);
         }
-
     } // GET REQUEST isset()
 }
 
@@ -354,8 +351,9 @@ function getPostLikes($post_id)
     echo mysqli_num_rows($result);
 }
 
-function insertCategories()
+function insertCategories($user_id)
 {
+    echo $user_id;
     global $connection;
     if (isset($_POST['submit'])) {
         $cat_title = $_POST['cat_title'];
@@ -367,8 +365,8 @@ function insertCategories()
         } else {
             /*$query = "INSERT INTO categories(cat_title) ";
             $query .= "VALUE('{$cat_title}')";*/
-            $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUE(?) ");
-            mysqli_stmt_bind_param($stmt, 's', $cat_title);
+            $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title,user_id) VALUE(?,?) ");
+            mysqli_stmt_bind_param($stmt, 'si', $cat_title, $user_id);
             mysqli_stmt_execute($stmt);
 
             // $create_category_query = mysqli_query($connection, $query);

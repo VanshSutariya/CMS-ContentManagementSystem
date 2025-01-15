@@ -1,11 +1,11 @@
 <?php include 'includes/db.php' ?>
 <?php include 'includes/header.php' ?>
 
-    <!-- Navigation -->
+<!-- Navigation -->
 <?php include 'includes/navigation.php' ?>
 
-    <!-- Page Content -->
-    <div class="container">
+<!-- Page Content -->
+<div class="container">
 
     <div class="row">
 
@@ -58,7 +58,7 @@
                     $post_image = $row['post_image'];
                     $post_content = substr($row['post_content'], 0, 200);*/
                 while (mysqli_stmt_fetch($stmt)) :
-                    ?>
+            ?>
 
                     <!-- First Blog Post -->
                     <h2>
@@ -70,16 +70,17 @@
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted
                         on <?php $date = date_create($post_date);
-                        echo date_format($date, "F j, Y"); ?></p>
+                            echo date_format($date, "F j, Y"); ?></p>
                     <hr>
                     <img class="img-responsive" src="/php-cms/images/<?php echo imagePlaceholder($post_image); ?>"
-                         alt="<?php echo $post_title; ?>">
+                        alt="<?php echo $post_title; ?>">
                     <hr>
-                    <p><?php echo $post_content; ?></p>
-
+                    <div style="word-wrap:break-word">
+                        <?php echo $post_content; ?>
+                    </div>
                     <hr>
 
-                <?php
+            <?php
                 endwhile;
                 mysqli_stmt_close($stmt);
                 /*}*/
@@ -98,4 +99,4 @@
 
     <hr>
 
-<?php include 'includes/footer.php' ?>
+    <?php include 'includes/footer.php' ?>

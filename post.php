@@ -72,7 +72,6 @@ if (isset($_POST['unliked'])) {
                     if (!$send_query) {
                         die('Query Failed' . mysqli_error($connection));
                     }
-
                 }
 
                 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
@@ -106,7 +105,7 @@ if (isset($_POST['unliked'])) {
                         $post_date = $row['post_date'];
                     }
 
-                    ?>
+            ?>
 
                     <!-- Blog Post -->
 
@@ -123,46 +122,48 @@ if (isset($_POST['unliked'])) {
 
                     <!-- Date/Time -->
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php $date = date_create($post_date);
-                        echo date_format($date, "F j, Y"); ?></p>
+                                                                                echo date_format($date, "F j, Y"); ?></p>
 
                     <hr>
 
                     <!-- Preview Image -->
                     <img class="img-responsive" src="/php-cms/images/<?php echo imagePlaceholder($post_image); ?>"
-                         alt="">
+                        alt="">
 
                     <hr>
 
                     <!-- Post Content -->
-                    <p><?php echo $post_content; ?></p>
 
+                    <div style="word-wrap:break-word">
+                        <?php echo $post_content; ?>
+                    </div>
                     <hr>
 
                     <?php
                     if (isLoggedIn()) {
-                        ?>
+                    ?>
                         <div class="row">
                             <p class="pull-right"><a class="like" href="#" data-toggle="tooltip" data-placement="top"
-                                                     title="Like this post"><span
-                                            class="glyphicon glyphicon-thumbs-up"></span>
+                                    title="Like this post"><span
+                                        class="glyphicon glyphicon-thumbs-up"></span>
                                     Like</a>
                             </p>
                         </div>
 
                         <div class="row">
                             <p class="pull-right"><a class="unlike" href="#" data-toggle="tooltip" data-placement="top"
-                                                     title="Unlike this post"><span
-                                            class="glyphicon glyphicon-thumbs-down"></span>
+                                    title="Unlike this post"><span
+                                        class="glyphicon glyphicon-thumbs-down"></span>
                                     Unlike</a>
                             </p>
                         </div>
-                        <?php
+                    <?php
                     } else {
-                        ?>
+                    ?>
                         <div class="row">
                             <p class="pull-right">You need to <a href="/php-cms/login.php">Login</a> to like.</p>
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
 
@@ -222,7 +223,7 @@ if (isset($_POST['unliked'])) {
                             <div class="form-group">
                                 <label for="comment_content">Comment</label>
                                 <textarea class="form-control" rows="3" id="comment_content"
-                                          name="comment_content"></textarea>
+                                    name="comment_content"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary" name="create_comment">Submit</button>
                         </form>
@@ -246,7 +247,7 @@ if (isset($_POST['unliked'])) {
                         $comment_content = $row['comment_content'];
                         $comment_author = $row['comment_author'];
 
-                        ?>
+                    ?>
 
                         <!-- Comment -->
                         <div class="media">
@@ -256,12 +257,12 @@ if (isset($_POST['unliked'])) {
                             <div class="media-body">
                                 <h4 class="media-heading"><?php echo $comment_author ?>
                                     <small><?php $date = date_create($comment_date);
-                                        echo date_format($date, "F j, Y"); ?></small>
+                                            echo date_format($date, "F j, Y"); ?></small>
                                 </h4>
                                 <?php echo $comment_content ?>
                             </div>
                         </div>
-                        <?php
+            <?php
                     }
                 }
             } else {
@@ -282,14 +283,14 @@ if (isset($_POST['unliked'])) {
     <?php include 'includes/footer.php' ?>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("[data-toggle='tooltip']").tooltip();
 
             var post_id = <?php echo $the_post_id; ?>;
             var user_id = <?php echo loggedInUserId(); ?>;
 
             // LIKING
-            $('.like').click(function () {
+            $('.like').click(function() {
                 // console.log("It Works!")
                 $.ajax({
                     url: "/php-cms/post.php?p_id=<?php echo $the_post_id; ?>",
@@ -303,7 +304,7 @@ if (isset($_POST['unliked'])) {
             });
 
             // UNLIKING
-            $('.unlike').click(function () {
+            $('.unlike').click(function() {
                 // console.log("It Works!")
                 $.ajax({
                     url: "/php-cms/post.php?p_id=<?php echo $the_post_id; ?>",
