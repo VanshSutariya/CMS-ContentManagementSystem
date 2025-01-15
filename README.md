@@ -62,7 +62,7 @@ git clone https://github.com/MajhiRockzZ/php-content-management-system.git
 
 ## Authors
 
-- **Sumesh Majhi** - _Portfolio Site_ - [MajhiRockzZ](https://majhirockzz.xyz/)
+- **Vansh Sutariya** - _Portfolio Site_ - [MajhiRockzZ](https://majhirockzz.xyz/)
 
 ## License
 
